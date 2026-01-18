@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026西葡双牙11日深度游 - Eurasia Tours</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Noto Sans SC', sans-serif; }
+        h1, h2, h3, h4, h5 { font-family: 'Playfair Display', 'Noto Sans SC', serif; }
+        .text-brand { color: #b91c1c; }
+        .bg-brand { background-color: #b91c1c; }
+        .border-brand { border-color: #b91c1c; }
+        .hover-border-brand:hover { border-color: #b91c1c; }
+        .hover\:bg-brand:hover { background-color: #991b1b; }
+        
+        .nav-link-spacing { letter-spacing: 0.1em; }
+
+        /* 动画类 */
+        .mobile-menu-enter-active, .mobile-menu-leave-active { transition: opacity 0.3s ease, transform 0.3s ease; }
+        .mobile-menu-enter-from, .mobile-menu-leave-to { opacity: 0; transform: translateY(-10px); }
+        
+        .dropdown-enter-active { transition: opacity 0.2s ease-out, transform 0.2s ease-out; }
+        .dropdown-leave-active { transition: opacity 0.15s ease-in, transform 0.15s ease-in; }
+        .dropdown-enter-from, .dropdown-leave-to { opacity: 0; transform: translateY(10px) scale(0.98); }
+        
+        /* 弹窗动画 */
+        .modal-enter-active, .modal-leave-active { transition: opacity 0.3s ease; }
+        .modal-enter-from, .modal-leave-to { opacity: 0; }
+        .modal-content-enter-active { transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); } 
+        .modal-content-leave-active { transition: all 0.2s ease-in; }
+        .modal-content-enter-from, .modal-content-leave-to { transform: scale(0.95); opacity: 0; }
+
+        .qr-fade-enter-active, .qr-fade-leave-active { transition: opacity 0.3s ease, transform 0.3s ease; }
+        .qr-fade-enter-from, .qr-fade-leave-to { opacity: 0; transform: translateY(10px); }
+        
+        /* 轮播图渐变 */
+        .carousel-enter-active, .carousel-leave-active { transition: opacity 1s ease; }
+        .carousel-enter-from, .carousel-leave-to { opacity: 0; }
+
+        /* 时间轴线 */
+        .timeline-line {
+            position: absolute;
+            left: 15px;
+            top: 40px;
+            bottom: 0;
+            width: 2px;
+            background-color: #e5e7eb;
+        }
+        .last-item .timeline-line { display: none; }
+        
+        /* 表单高亮动画 */
+        @keyframes highlightPulse {
+            0% { box-shadow: 0 0 0 0 rgba(185, 28, 28, 0); border-color: #e5e7eb; }
+            50% { box-shadow: 0 0 20px 0 rgba(185, 28, 28, 0.3); border-color: #b91c1c; background-color: #fff1f2; }
+            100% { box-shadow: 0 0 0 0 rgba(185, 28, 28, 0); border-color: #e5e7eb; background-color: white; }
+        }
+        .highlight-active { animation: highlightPulse 1.5s ease-in-out 2; }
+        
+        .input-error { 
+            border-color: #ef4444 !important; 
+            background-color: #fef2f2 !important; 
+            animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+        }
+        
+        @keyframes shake {
+            10%, 90% { transform: translate3d(-1px, 0, 0); }
+            20%, 80% { transform: translate3d(2px, 0, 0); }
+            30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+            40%, 60% { transform: translate3d(4px, 0, 0); }
+        }
+
+        .fade-in { animation: fadeIn 0.8s ease-out forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        
+        /* 自定义滚动条样式 */
+        .custom-scrollbar {
+            scrollbar-width: thin;
+            scrollbar-color: #d1d5db transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background-color: #d1d5db; border-radius: 20px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background-color: #9ca3af; }
+        
+        /* 折叠动画 */
+        .accordion-enter-active, .accordion-leave-active { transition: all 0.3s ease-in-out; max-height: 500px; opacity: 1; overflow: hidden; }
+        .accordion-enter-from, .accordion-leave-to { max-height: 0; opacity: 0; }
+
+        [v-cloak] { display: none; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 antialiased">
+
+<div id="app" v-cloak>
+    <header class="fixed w-full top-0 z-[100] bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col lg:flex-row items-center justify-between py-2 lg:h-24">
+                <div class="flex items-center justify-between w-full lg:w-auto">
+                    <a href="index CN.html" class="flex items-center group">
+                        <img src="https://www.eurasia-tours.fr/assets/logo-word-rNz8dsz6.jpg" 
+                             alt="Logo" class="h-10 md:h-12 w-auto object-contain transition-transform group-hover:scale-105 mix-blend-multiply">
+                    </a>
+                    <button class="lg:hidden relative z-50 text-2xl p-2 text-gray-700 focus:outline-none cursor-pointer" @click="isMobileMenuOpen = !isMobileMenuOpen">
+                        <i class="fas" :class="isMobileMenuOpen ? 'fa-times' : 'fa-bars'"></i>
+                    </button>
+                </div>
+
+                <nav class="hidden lg:flex flex-1 items-center justify-end ml-8 max-w-6xl gap-8">
+                    <div v-for="link in navLinks" :key="link.name" class="relative group py-8"
+                         @mouseenter="link.name === '目的地' ? isDestDropdownOpen = true : null"
+                         @mouseleave="isDestDropdownOpen = false">
+                        
+                        <a :href="link.url" 
+                           class="nav-link-spacing relative py-3 px-1 text-sm xl:text-[15px] font-bold uppercase transition-all flex items-center gap-1"
+                           :class="link.current ? 'text-brand' : 'text-gray-700 hover:text-brand'">
+                            {{ link.name }}
+                            <i v-if="link.subLinks" class="fas fa-angle-down text-xs transition-transform duration-300" :class="{'rotate-180': link.name === '目的地' && isDestDropdownOpen}"></i>
+                            
+                            <span class="absolute bottom-1 left-0 h-0.5 bg-brand transition-all duration-300"
+                                  :class="link.current ? 'w-full' : 'w-0 group-hover:w-full'"></span>
+                        </a>
+
+                        <transition name="dropdown">
+                            <div v-if="link.name === '目的地' && isDestDropdownOpen" 
+                                 class="absolute top-full left-1/2 -translate-x-1/2 w-[220px] bg-white shadow-[0_20px_50px_rgba(0,0,0,0.15)] rounded-xl border border-gray-100 p-3 overflow-hidden mt-[-5px]">
+                                <div class="px-4 pb-2 mb-2 border-b border-gray-50 text-[10px] uppercase tracking-[0.2em] text-gray-400 font-bold">热门国家</div>
+                                <ul class="space-y-1">
+                                    <li v-for="sub in link.subLinks" :key="sub.name">
+                                        <a :href="sub.url" class="flex items-center gap-3 px-4 py-3 text-base font-medium text-gray-700 hover:bg-red-50 hover:text-brand rounded-lg transition-all group/item border-l-2 border-transparent hover:border-brand">
+                                            <i class="fas fa-map-pin text-[10px] text-brand opacity-0 group-hover/item:opacity-100 transition-opacity duration-300"></i>
+                                            {{ sub.name }}
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="mt-3 pt-2 border-t border-gray-50">
+                                    <a href="destination main CN.html" class="flex items-center justify-center gap-2 px-4 py-2 text-[13px] font-bold text-brand hover:underline">浏览所有目的地 <i class="fas fa-arrow-right text-[10px]"></i></a>
+                                </div>
+                            </div>
+                        </transition>
+                    </div>
+
+                    <div class="relative group py-8 pl-8 ml-2"
+                         @mouseenter="isLangDropdownOpen = true"
+                         @mouseleave="isLangDropdownOpen = false">
+                        
+                        <span class="absolute left-0 top-1/2 -translate-y-1/2 h-5 w-px bg-gray-200"></span>
+
+                        <a href="#" class="nav-link-spacing relative py-3 px-1 text-sm xl:text-[15px] font-bold uppercase text-gray-700 hover:text-brand transition-all flex items-center gap-2">
+                            <i class="fas fa-globe text-lg"></i>
+                            {{ currentLang }}
+                            <i class="fas fa-angle-down text-xs transition-transform duration-300" :class="{'rotate-180': isLangDropdownOpen}"></i>
+                        </a>
+                        <transition name="dropdown">
+                            <div v-if="isLangDropdownOpen" 
+                                 class="absolute top-full right-0 w-[140px] bg-white shadow-[0_20px_50px_rgba(0,0,0,0.15)] rounded-xl border border-gray-100 p-2 overflow-hidden mt-[-5px]">
+                                <ul class="space-y-1">
+                                    <li>
+                                        <a href="#" @click.prevent="switchLang('中文')" 
+                                           class="flex items-center justify-between px-4 py-2 text-sm font-medium text-gray-700 hover:bg-red-50 hover:text-brand rounded-lg transition-all"
+                                           :class="{'bg-red-50 text-brand': currentLang === '中文'}">
+                                            中文 <i v-if="currentLang === '中文'" class="fas fa-check text-xs"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" @click.prevent="switchLang('English')" 
+                                           class="flex items-center justify-between px-4 py-2 text-sm font-medium text-gray-700 hover:bg-red-50 hover:text-brand rounded-lg transition-all"
+                                           :class="{'bg-red-50 text-brand': currentLang === 'English'}">
+                                            English <i v-if="currentLang === 'English'" class="fas fa-check text-xs"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" @click.prevent="switchLang('Française')" 
+                                           class="flex items-center justify-between px-4 py-2 text-sm font-medium text-gray-700 hover:bg-red-50 hover:text-brand rounded-lg transition-all"
+                                           :class="{'bg-red-50 text-brand': currentLang === 'Française'}">
+                                            Française <i v-if="currentLang === 'Française'" class="fas fa-check text-xs"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </transition>
+                    </div>
+                </nav>
+            </div>
+        </div>
+
+        <transition name="mobile-menu">
+            <nav v-if="isMobileMenuOpen" class="lg:hidden absolute top-full left-0 w-full bg-white border-t border-gray-100 py-6 pb-10 shadow-xl overflow-y-auto max-h-[80vh]">
+                <div class="flex flex-col items-center gap-6">
+                    <a v-for="link in navLinks" :key="link.name" :href="link.url"
+                       class="text-xl font-bold py-2 uppercase tracking-widest transition"
+                       :class="link.current ? 'text-brand' : 'text-gray-800 hover:text-brand'"
+                       @click="isMobileMenuOpen = false">
+                       {{ link.name }}
+                    </a>
+                    
+                    <div class="flex items-center gap-4 mt-2 border-t border-gray-100 pt-6 w-full justify-center flex-wrap px-4">
+                        <button @click="switchLang('中文')" class="px-4 py-1 rounded-full text-sm font-bold transition" :class="currentLang === '中文' ? 'bg-brand text-white' : 'bg-gray-100 text-gray-600'">中文</button>
+                        <button @click="switchLang('English')" class="px-4 py-1 rounded-full text-sm font-bold transition" :class="currentLang === 'English' ? 'bg-brand text-white' : 'bg-gray-100 text-gray-600'">English</button>
+                        <button @click="switchLang('Française')" class="px-4 py-1 rounded-full text-sm font-bold transition" :class="currentLang === 'Française' ? 'bg-brand text-white' : 'bg-gray-100 text-gray-600'">Française</button>
+                    </div>
+
+                    <a href="contact.html" class="bg-brand text-white px-10 py-3 rounded-full font-bold shadow-lg mt-4" @click="isMobileMenuOpen = false">立即咨询</a>
+                </div>
+            </nav>
+        </transition>
+    </header>
+    <main class="pt-24 min-h-screen">
+        
+        <section class="relative h-[60vh] min-h-[500px] w-full overflow-hidden bg-gray-900 group">
+            <transition-group name="carousel">
+                <div v-for="(img, index) in heroImages" :key="img" 
+                     v-show="currentHeroIndex === index"
+                     class="absolute inset-0 w-full h-full will-change-opacity">
+                    <img :src="img" 
+                         alt="Hero Background" 
+                         class="w-full h-full object-cover opacity-90 transition-transform duration-[5000ms] ease-linear transform scale-105">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
+                </div>
+            </transition-group>
+            
+            <button @click="prevSlide" class="absolute left-4 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full bg-black/30 hover:bg-brand text-white backdrop-blur-sm flex items-center justify-center transition-all opacity-0 group-hover:opacity-100 border border-white/20">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button @click="nextSlide" class="absolute right-4 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full bg-black/30 hover:bg-brand text-white backdrop-blur-sm flex items-center justify-center transition-all opacity-0 group-hover:opacity-100 border border-white/20">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+
+            <div class="absolute bottom-8 right-8 z-30 flex gap-2">
+                <button v-for="(img, index) in heroImages" :key="index" 
+                        @click="currentHeroIndex = index"
+                        :class="['h-1.5 rounded-full transition-all', currentHeroIndex === index ? 'bg-brand w-8' : 'bg-white/50 w-2 hover:bg-white']">
+                </button>
+            </div>
+
+            <div class="absolute bottom-0 left-0 w-full z-20 pt-20 pb-10">
+                <div class="container mx-auto px-4 flex flex-col md:flex-row items-end justify-between gap-6">
+                    <div class="text-white max-w-3xl">
+                        <div class="flex items-center gap-3 mb-3">
+                            <span class="bg-brand text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest">伊比利亚半岛</span>
+                            <span class="bg-white/20 backdrop-blur text-white text-xs font-bold px-3 py-1 rounded-full"><i class="far fa-clock mr-1"></i> 11天 / 10晚</span>
+                        </div>
+                        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold font-serif mb-2 leading-tight">
+                            {{ tour.title }}
+                        </h1>
+                        <p class="text-xl md:text-2xl font-light opacity-90 font-serif italic">{{ tour.engName }}</p>
+                    </div>
+                    
+                    <div class="hidden md:block text-right pb-2">
+                        <div class="text-gray-300 text-sm mb-1 font-medium uppercase tracking-widest">双人间/人 售价</div>
+                        <div class="flex items-baseline justify-end gap-1 mb-4">
+                            <span class="text-2xl font-bold text-brand">$</span>
+                            <span class="text-5xl font-bold text-white shadow-black drop-shadow-lg">1 588</span>
+                        </div>
+                        <button @click="handleBookingScroll()" class="bg-brand text-white text-lg px-10 py-4 rounded-full font-bold shadow-[0_10px_20px_rgba(185,28,28,0.4)] hover:-translate-y-1 hover:shadow-2xl transition-all flex items-center gap-2">
+                            <span>获取报价 / 预报名</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div id="sticky-nav" class="sticky top-[80px] lg:top-[96px] z-40 bg-white/95 backdrop-blur shadow-md border-b border-gray-100 transition-all">
+            <div class="container mx-auto px-4">
+                <div class="flex items-center justify-between overflow-x-auto scrollbar-hide">
+                    <ul class="flex items-center gap-6 md:gap-8 h-14 whitespace-nowrap">
+                        <li v-for="item in subMenu" :key="item.id">
+                            <a :href="'#' + item.id" 
+                               v-if="!item.hidden"
+                               class="text-sm font-bold uppercase tracking-wider py-4 border-b-2 border-transparent hover:text-brand hover:border-brand transition-colors block"
+                               :class="activeSection === item.id ? 'text-brand border-brand' : 'text-gray-500'">
+                                {{ item.name }}
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="md:hidden pl-4 border-l border-gray-100 ml-4 py-2">
+                        <button @click="handleBookingScroll()" class="bg-brand text-white text-xs px-4 py-2 rounded-full font-bold whitespace-nowrap">
+                            预报名
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container mx-auto px-4 py-12">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                
+                <div class="lg:col-span-8 space-y-12">
+                    
+                    <section id="dates" class="scroll-mt-40">
+                         <div class="flex items-center gap-3 mb-6">
+                            <h2 class="text-3xl font-bold text-gray-800">日期与价格</h2>
+                            <span class="bg-brand text-white text-xs font-bold px-2 py-1 rounded">2026年 精选团期</span>
+                        </div>
+                        
+                        <div class="bg-white border border-gray-200 rounded-2xl shadow-lg overflow-hidden">
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-left">
+                                    <thead class="bg-gray-50 border-b border-gray-200">
+                                        <tr>
+                                            <th class="p-5 font-bold text-gray-600 uppercase text-xs tracking-wider">出发日期</th>
+                                            <th class="p-5 font-bold text-gray-600 uppercase text-xs tracking-wider">双人间/人</th>
+                                            <th class="p-5 font-bold text-brand uppercase text-xs tracking-wider text-right">单间差</th>
+                                            <th class="p-5 font-bold text-gray-600 uppercase text-xs tracking-wider text-center">状态</th>
+                                            <th class="p-5"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-gray-100">
+                                        <tr v-for="date in tour.dates" :key="date.start" class="hover:bg-red-50/30 transition-colors group">
+                                            <td class="p-5 font-medium text-gray-800">{{ date.start }}</td>
+                                            <td class="p-5 text-gray-600">{{ date.price }}</td>
+                                            <td class="p-5 text-right font-medium text-gray-500">{{ tour.singleSupplement }}</td>
+                                            <td class="p-5 text-center">
+                                                <span class="inline-flex items-center gap-1 bg-green-100 text-green-700 text-xs px-2 py-1 rounded-full font-bold">
+                                                    <i class="fas fa-check-circle"></i> 确认
+                                                </span>
+                                            </td>
+                                            <td class="p-5 text-right">
+                                                <button @click="handleBookingScroll(date.start)" class="bg-gray-800 text-white text-xs px-4 py-2 rounded-full font-bold group-hover:bg-brand transition-colors">
+                                                    预订
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="bg-gray-50 p-4 text-xs text-gray-500 border-t border-gray-200 flex flex-col md:flex-row justify-between items-center gap-2">
+                                <span><i class="fas fa-info-circle mr-1"></i> 单人报名需补交单间差 ($700)。</span>
+                                <span>* 全程优选3星级酒店，深度游览西葡双国</span>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="overview" class="scroll-mt-40 pt-8 border-t border-gray-100">
+                        <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-3">
+                            线路亮点
+                        </h2>
+                        <div class="prose prose-lg text-gray-600 mb-8">
+                            <p class="italic text-gray-500 mb-6 border-l-4 border-brand pl-4">
+                                "从高迪的奇幻建筑到安达卢西亚的热情弗拉明戈，一次尽览伊比利亚半岛的精华。"
+                            </p>
+                            <p class="text-sm">
+                                深度游览巴塞罗那的圣家堂与米拉之家，在马德里感受皇家风范。探访“陆止于此，海始于斯”的罗卡角，漫步里斯本的贝伦区。在塞维利亚沉醉于西班牙广场的壮丽，在格拉纳达仰望阿尔罕布拉宫的摩尔风情。行程还包括古城托莱多、大学城科英布拉以及悬崖上的龙达小镇。
+                            </p>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div v-for="(highlight, index) in tour.highlights" :key="index" class="bg-red-50 p-4 rounded-xl flex items-start gap-3 border border-transparent hover:border-red-100 transition-colors">
+                                <div class="w-8 h-8 rounded-full bg-white text-brand flex items-center justify-center flex-shrink-0 shadow-sm mt-1">
+                                    <i class="fas fa-check text-sm"></i>
+                                </div>
+                                <span class="font-medium text-gray-800">{{ highlight }}</span>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="itinerary" class="scroll-mt-40">
+                        <div class="flex items-center justify-between mb-8">
+                            <h2 class="text-3xl font-bold text-gray-800">详细行程</h2>
+                            <button @click="toggleAllDays" class="text-brand text-sm font-bold hover:underline px-3 py-1 rounded hover:bg-red-50 transition">
+                                {{ isAllExpanded ? '收起全部' : '展开全部' }}
+                            </button>
+                        </div>
+
+                        <div class="relative space-y-8">
+                            <div v-for="(day, index) in tour.daysData" :key="index" 
+                                 class="relative pl-10 group" :class="{'last-item': index === tour.daysData.length - 1}">
+                                
+                                <div class="timeline-line"></div>
+                                
+                                <div class="absolute left-0 top-0 w-8 h-8 bg-brand text-white rounded-full flex items-center justify-center font-bold text-sm shadow-md z-10">
+                                    {{ day.day }}
+                                </div>
+
+                                <div class="bg-white border border-gray-100 rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow">
+                                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4 cursor-pointer select-none" 
+                                         @click="toggleDay(index)">
+                                        <div>
+                                            <div class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">
+                                                {{ day.transport }}
+                                            </div>
+                                            <h3 class="text-xl font-bold text-gray-800 group-hover:text-brand transition-colors">
+                                                {{ day.title }}
+                                            </h3>
+                                        </div>
+                                        <i class="fas fa-chevron-down text-gray-300 transition-transform duration-300" 
+                                           :class="{'rotate-180': day.isOpen}"></i>
+                                    </div>
+
+                                    <div v-show="day.isOpen" class="space-y-4 text-gray-600 leading-relaxed border-t border-gray-50 pt-4">
+                                        <div v-html="day.content"></div>
+                                        
+                                        <div class="mt-4 rounded-xl overflow-hidden h-48 md:h-64 w-full relative bg-gray-100 flex items-center justify-center group/img">
+                                            <img :src="day.image" class="w-full h-full object-cover transition-transform duration-700 group-hover/img:scale-105" alt="Day Image">
+                                        </div>
+                                        
+                                        <div class="flex flex-wrap gap-2 mt-4">
+                                            <div v-if="day.hotel" class="flex items-center gap-2 text-xs text-gray-500 bg-gray-50 px-3 py-2 rounded-lg">
+                                                <i class="fas fa-bed text-brand"></i>
+                                                <span class="font-bold">住宿：</span> {{ day.hotel }}
+                                            </div>
+                                            <div v-if="day.meals" class="flex items-center gap-2 text-xs text-gray-500 bg-gray-50 px-3 py-2 rounded-lg">
+                                                <i class="fas fa-utensils text-brand"></i>
+                                                <span class="font-bold">餐饮：</span> {{ day.meals }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    
+                    <section id="accommodation" class="scroll-mt-40 bg-gray-50 rounded-2xl p-8 border border-gray-100">
+                        <h2 class="text-2xl font-bold text-gray-800 mb-6">精选酒店</h2>
+                        <p class="text-sm text-gray-500 mb-6">全程入住当地3星级酒店，为您提供舒适的休息环境。</p>
+                        <ul class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <li v-for="hotel in tour.hotelList" :key="hotel.city" class="bg-white p-4 rounded-lg shadow-sm flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-full bg-brand/10 flex items-center justify-center text-brand font-bold text-xs uppercase">
+                                    {{ hotel.city.substring(0,2) }}
+                                </div>
+                                <div>
+                                    <div class="font-bold text-gray-800">{{ hotel.city }}</div>
+                                    <div class="text-sm text-gray-500">{{ hotel.name }}</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </section>
+
+                    <section id="optionals" class="scroll-mt-40">
+                        <div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 border border-gray-200 shadow-sm">
+                            <div class="mb-6">
+                                <h3 class="text-2xl font-bold text-gray-800 flex items-center gap-3">
+                                    <i class="fas fa-ticket-alt text-brand"></i> 自费项目推荐
+                                </h3>
+                                <p class="text-sm text-gray-500 mt-2">点击下方卡片查看详情。您可以在预报名时勾选，费用将计入总估价（欧元项目需现场支付）。</p>
+                            </div>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                <div v-for="(item, index) in tour.optionalItems" :key="index" 
+                                     @click="openOptionalModal(item)"
+                                     class="bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-md transition-all cursor-pointer group flex flex-col transform hover:-translate-y-1">
+                                    <div class="h-40 bg-gray-100 relative overflow-hidden">
+                                        <img :src="item.detailImage" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                                        <div class="absolute top-2 right-2 bg-brand text-white text-xs font-bold px-2 py-1 rounded shadow-lg">
+                                            <span v-if="item.price > 0">{{ item.price }} {{ item.unit }}</span>
+                                            <span v-else>自理</span>
+                                        </div>
+                                        <div class="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors"></div>
+                                        <div class="absolute bottom-2 left-2 text-white text-xs bg-black/50 px-2 py-1 rounded backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity">
+                                            点击查看详情
+                                        </div>
+                                    </div>
+                                    <div class="p-4 flex-1 flex flex-col">
+                                        <h4 class="font-bold text-gray-800 mb-2 group-hover:text-brand transition-colors">{{ item.name }}</h4>
+                                        <p class="text-xs text-gray-500 flex-1 line-clamp-2">{{ item.shortDesc }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-6 pt-4 border-t border-gray-100 text-xs text-gray-400 flex items-center gap-2">
+                                <i class="fas fa-info-circle"></i>
+                                <span>注：景点门票（如圣家堂、阿尔罕布拉宫等）建议提前预订，现场可能无票。</span>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="includes" class="scroll-mt-40 grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="bg-green-50/50 p-6 rounded-2xl border border-green-100">
+                            <h3 class="font-bold text-green-800 mb-4 flex items-center gap-2">
+                                <i class="fas fa-check-circle"></i> 费用包含
+                            </h3>
+                            <ul class="space-y-3">
+                                <li v-for="(item, i) in tour.includes" :key="i" class="flex items-start gap-3 text-sm text-gray-700">
+                                    <span class="w-1.5 h-1.5 bg-green-500 rounded-full mt-1.5 flex-shrink-0"></span>
+                                    <span>{{ item }}</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="bg-red-50/50 p-6 rounded-2xl border border-red-100">
+                            <h3 class="font-bold text-red-800 mb-4 flex items-center gap-2">
+                                <i class="fas fa-times-circle"></i> 费用不含
+                            </h3>
+                            <ul class="space-y-3">
+                                <li v-for="(item, i) in tour.excludes" :key="i" class="flex items-start gap-3 text-sm text-gray-700">
+                                    <span class="w-1.5 h-1.5 bg-red-400 rounded-full mt-1.5 flex-shrink-0"></span>
+                                    <span>{{ item }}</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+                </div>
+
+                <div class="lg:col-span-4 relative">
+                    <div class="sticky top-28 max-h-[calc(100vh-130px)] overflow-y-auto custom-scrollbar pr-2 pb-4">
+                        <div id="contact" 
+                             :class="['bg-white rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.1)] border p-5 relative overflow-hidden transition-all duration-300', formHighlight ? 'highlight-active border-brand' : 'border-gray-100']">
+                            
+                            <div class="absolute top-0 left-0 w-full h-2 bg-brand"></div>
+                            
+                            <div v-if="isSubmitted" class="py-10 text-center fade-in">
+                                <div class="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-3xl mx-auto mb-4 animate-bounce">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                                <h3 class="text-xl font-bold text-gray-800 mb-3">意向发送成功！</h3>
+                                <p class="text-xs text-gray-600 mb-6 leading-relaxed">
+                                    我们将在 <span class="text-brand font-bold underline">24小时内</span> 联系您。
+                                </p>
+                                <button @click="resetForm" class="text-brand font-bold text-xs hover:underline flex items-center gap-2 mx-auto">
+                                    <i class="fas fa-redo-alt text-[10px]"></i> 填写新需求
+                                </button>
+                            </div>
+
+                            <form v-else class="space-y-3" @submit.prevent="handleFormSubmit" novalidate>
+                                <div>
+                                    <h3 class="text-xl font-bold font-serif mb-1">开始您的探索</h3>
+                                    <p class="text-xs text-gray-400">填写表单，顾问将在24小时内联系您。</p>
+                                </div>
+
+                                <div class="grid grid-cols-2 gap-3">
+                                    <div>
+                                        <label class="block text-[10px] font-bold text-gray-500 mb-1 ml-1 uppercase">姓名 *</label>
+                                        <input type="text" v-model="formData.name" required placeholder="您的姓名"
+                                               :class="{'input-error': attemptedSubmit && !formData.name}"
+                                               class="w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand transition outline-none">
+                                    </div>
+                                    <div>
+                                        <label class="block text-[10px] font-bold text-gray-500 mb-1 ml-1 uppercase">出行人数 *</label>
+                                        <input type="number" v-model.number="formData.passengers" min="1" required
+                                               :class="{'input-error': attemptedSubmit && !formData.passengers}"
+                                               class="w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand transition outline-none">
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label class="block text-[10px] font-bold text-gray-500 mb-1 ml-1 uppercase">联系电话 *</label>
+                                    <div class="flex gap-2">
+                                        <div class="relative w-24 shrink-0">
+                                            <select v-model="formData.countryCode" class="w-full pl-2 pr-5 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:border-brand transition text-xs appearance-none h-full">
+                                                <option value="+33">🇫🇷 +33</option>
+                                                <option value="+86">🇨🇳 +86</option>
+                                                <option value="+852">🇭🇰 +852</option>
+                                                <option value="+44">🇬🇧 +44</option>
+                                                <option value="+1">🇺🇸 +1</option>
+                                            </select>
+                                            <i class="fas fa-chevron-down absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none text-[10px]"></i>
+                                        </div>
+                                        <input type="tel" v-model="formData.phone" required placeholder="号码"
+                                               :class="{'input-error': attemptedSubmit && (phoneError || !formData.phone)}"
+                                               class="flex-1 w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand transition outline-none">
+                                    </div>
+                                    <p v-if="attemptedSubmit && phoneError" class="text-red-600 text-[10px] ml-1 mt-1">{{ phoneError }}</p>
+                                </div>
+
+                                <div>
+                                    <label class="block text-[10px] font-bold text-gray-500 mb-1 ml-1 uppercase">电子邮箱 *</label>
+                                    <input type="email" v-model="formData.email" required placeholder="example@email.com"
+                                           :class="{'input-error': attemptedSubmit && !formData.email}"
+                                           class="w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand transition outline-none">
+                                </div>
+
+                                <div>
+                                    <label class="block text-[10px] font-bold text-gray-500 mb-1 ml-1 uppercase">意向日期 *</label>
+                                    <div class="relative">
+                                        <select v-model="formData.date" required 
+                                                :class="{'input-error': attemptedSubmit && !formData.date}"
+                                                class="w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 focus:outline-none focus:border-brand transition text-gray-700 font-medium appearance-none text-sm">
+                                            <option value="" disabled>请选择日期</option>
+                                            <option v-for="date in tour.dates" :key="date.start" :value="date.start">{{ date.start }} ({{ date.price }})</option>
+                                            <option value="other">其他日期 / 待定</option>
+                                        </select>
+                                        <i class="fas fa-chevron-down absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none text-xs"></i>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label class="block text-[10px] font-bold text-gray-500 mb-1 ml-1 uppercase">加购自费项目 (每人)</label>
+                                    <div class="border border-gray-200 rounded-lg overflow-hidden transition-all duration-300" :class="{'border-brand bg-red-50/30': isOptionalsOpen}">
+                                        <button type="button" @click="isOptionalsOpen = !isOptionalsOpen" 
+                                                class="w-full flex justify-between items-center p-3 bg-gray-50 hover:bg-gray-100 transition-colors focus:outline-none">
+                                            <span class="text-xs font-medium text-gray-700">
+                                                <span v-if="formData.selectedOptionals.length === 0">点击选择项目</span>
+                                                <span v-else class="text-brand font-bold">已选择 {{ formData.selectedOptionals.length }} 项</span>
+                                            </span>
+                                            <i class="fas fa-chevron-down text-gray-400 text-xs transform transition-transform duration-300" 
+                                               :class="{'rotate-180 text-brand': isOptionalsOpen}"></i>
+                                        </button>
+                                        
+                                        <transition name="accordion">
+                                            <div v-show="isOptionalsOpen" class="bg-white border-t border-gray-100">
+                                                <div class="p-2 space-y-1">
+                                                    <div v-for="(item, index) in tour.optionalItems" :key="index" 
+                                                         class="flex items-center justify-between p-2 rounded hover:bg-gray-50 cursor-pointer transition-colors"
+                                                         @click="toggleOptionalSelection(item)">
+                                                        <div class="flex items-center gap-3">
+                                                            <div class="w-4 h-4 border rounded flex items-center justify-center transition-colors" 
+                                                                 :class="isOptionalSelected(item) ? 'bg-brand border-brand' : 'border-gray-300 bg-white'">
+                                                                <i v-if="isOptionalSelected(item)" class="fas fa-check text-white text-[10px]"></i>
+                                                            </div>
+                                                            <span class="text-xs text-gray-700 select-none">{{ item.name }}</span>
+                                                        </div>
+                                                        <span v-if="item.price > 0" class="text-xs font-bold text-gray-500 select-none">+{{ item.price }} {{ item.unit }}</span>
+                                                        <span v-else class="text-xs font-bold text-gray-400 select-none">自理</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </transition>
+                                    </div>
+                                </div>
+
+                                <div v-if="calculatedPrice > 0" class="bg-red-50 p-3 rounded-lg border border-red-100 flex justify-between items-center">
+                                    <div class="flex flex-col">
+                                        <span class="text-[10px] text-red-600 font-bold uppercase">预估总价</span>
+                                        <div class="flex flex-col">
+                                            <span v-if="hasSingleSupplement" class="text-[9px] text-red-400 leading-tight">* 含单人房差 {{ tour.singleSupplement }}</span>
+                                            <span v-if="hasMixedCurrency" class="text-[9px] text-red-400 leading-tight">* 含欧元项目预估总和</span>
+                                        </div>
+                                    </div>
+                                    <div class="text-right">
+                                        <span class="text-lg font-bold text-brand">{{ calculatedPrice.toLocaleString() }} $</span>
+                                        <span v-if="optionalEURTotal > 0" class="block text-[9px] text-gray-400">+ {{ optionalEURTotal }} € (现场付)</span>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label class="block text-[10px] font-bold text-gray-500 mb-1 ml-1 uppercase">备注需求</label>
+                                    <textarea v-model="formData.remarks" class="w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand transition h-16 outline-none resize-none" placeholder="特殊饮食、航班要求等..."></textarea>
+                                </div>
+
+                                <button class="w-full bg-brand text-white font-bold py-3 rounded-lg hover:bg-[#991b1b] transition shadow-lg flex items-center justify-center gap-2 transform active:scale-95 text-sm">
+                                    <span v-if="isSending"><i class="fas fa-spinner fa-spin"></i> 发送中...</span>
+                                    <span v-else>提交预报名 <i class="fas fa-paper-plane"></i></span>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <transition name="modal">
+        <div v-if="activeOptional" class="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm" @click.self="closeOptionalModal">
+            <transition name="modal-content" appear>
+                <div class="bg-white rounded-2xl shadow-2xl max-w-lg w-full overflow-hidden relative">
+                    <button @click="closeOptionalModal" class="absolute top-4 right-4 z-10 w-8 h-8 bg-black/30 hover:bg-black/50 text-white rounded-full flex items-center justify-center transition-colors">
+                        <i class="fas fa-times"></i>
+                    </button>
+                    
+                    <div class="h-56 bg-gray-200 relative">
+                        <img :src="activeOptional.detailImage" class="w-full h-full object-cover">
+                        <div class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/80 to-transparent p-6 pt-12">
+                            <h3 class="text-2xl font-bold text-white">{{ activeOptional.name }}</h3>
+                            <div class="text-brand font-bold text-lg mt-1">
+                                <span v-if="activeOptional.price > 0">{{ activeOptional.price }} {{ activeOptional.unit }} <span class="text-white/80 text-xs font-normal">/ 人</span></span>
+                                <span v-else>自理</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="p-6">
+                        <p class="text-gray-600 text-sm leading-relaxed mb-6">{{ activeOptional.description }}</p>
+                        <button @click="closeOptionalModal" class="w-full bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold py-3 rounded-xl transition-colors">
+                            关闭
+                        </button>
+                    </div>
+                </div>
+            </transition>
+        </div>
+    </transition>
+
+    <footer class="bg-gray-900 text-gray-400 pt-20 pb-10 border-t-8 border-brand">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-20">
+                <div class="space-y-6">
+                    <img src="https://www.eurasia-tours.fr/assets/logo-word-rNz8dsz6.jpg" 
+                         alt="Logo" class="h-10 w-auto object-contain opacity-90 mix-blend-screen">
+                    <p class="text-sm leading-relaxed">自2000年起，欧美亚旅游致力为全球旅客提供最纯正的亚洲深度旅行体验。我们不仅是旅行社，更是您探索东方的文化向导。</p>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold text-lg mb-8 flex items-center gap-3"><span class="w-1 h-5 bg-brand"></span> 资质保障</h4>
+                    <ul class="space-y-4 text-sm text-gray-400">
+                        <li class="flex items-center gap-3"><i class="fas fa-check-circle text-brand"></i> APST 法国旅游保障协会成员</li>
+                        <li class="flex items-center gap-3"><i class="fas fa-check-circle text-brand"></i> IATA 国际航空运输协会认证</li>
+                        <li class="flex items-center gap-3"><i class="fas fa-shield-alt text-brand"></i> 包含 RCP 专业商业责任险</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold text-lg mb-8 flex items-center gap-3"><span class="w-1 h-5 bg-brand"></span> 联系我们</h4>
+                    <ul class="space-y-4 text-sm text-gray-400">
+                        <li class="flex items-start gap-3"><i class="fas fa-map-marker-alt text-brand mt-1"></i> 30 Rue Ernest Renan, 75015 Paris</li>
+                        <li class="flex items-center gap-3"><i class="fas fa-phone-alt text-brand"></i> 01 56 69 12 80</li>
+                        <li class="flex items-center gap-3"><i class="fas fa-envelope text-brand"></i> contact@eurasiatours.fr</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold text-lg mb-8 flex items-center gap-3"><span class="w-1 h-5 bg-brand"></span> 关注 & 支付</h4>
+                    <div class="flex gap-4 mb-8">
+                        <div class="relative group" @mouseenter="isWechatQR = true" @mouseleave="isWechatQR = false">
+                            <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-[#07C160] transition">
+                                <i class="fab fa-weixin text-white"></i>
+                            </a>
+                            <transition name="qr-fade">
+                                <div v-if="isWechatQR" class="absolute bottom-12 left-1/2 -translate-x-1/2 bg-white p-2 rounded-lg shadow-2xl z-50 w-32 border border-gray-100">
+                                    <img src="https://www.eurasia-tours.fr/assets/wechat-account-VZcww6ek.jpg" alt="WeChat QR" class="w-full h-auto">
+                                    <p class="text-[10px] text-gray-500 text-center mt-1 font-sans">扫码关注微信</p>
+                                </div>
+                            </transition>
+                        </div>
+                        <div class="relative group" @mouseenter="isFacebookQR = true" @mouseleave="isFacebookQR = false">
+                            <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-[#1877F2] transition">
+                                <i class="fab fa-facebook-f text-white"></i>
+                            </a>
+                            <transition name="qr-fade">
+                                <div v-if="isFacebookQR" class="absolute bottom-12 left-1/2 -translate-x-1/2 bg-white p-2 rounded-lg shadow-2xl z-50 w-32 border border-gray-100">
+                                    <img src="https://www.eurasia-tours.fr/assets/3-Bjf7LFHD.png" alt="Facebook QR" class="w-full h-auto">
+                                    <p class="text-[10px] text-gray-500 text-center mt-1 font-sans">关注我们的Facebook</p>
+                                </div>
+                            </transition>
+                        </div>
+                    </div>
+                    <div class="flex gap-4 text-3xl opacity-30">
+                        <i class="fab fa-cc-visa"></i><i class="fab fa-cc-mastercard"></i><i class="fab fa-cc-amex"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-10 text-center text-xs tracking-widest uppercase">
+                © 2026 EURASIA TOURS 欧美亚旅游 · 版权所有
+            </div>
+        </div>
+    </footer>
+</div>
+
+<script>
+    const { createApp, ref, reactive, computed, nextTick, onMounted } = Vue;
+
+    // EmailJS 配置 (请替换为您自己的ID)
+    const EMAILJS_SERVICE_ID = 'YOUR_SERVICE_ID';
+    const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';
+    const EMAILJS_PUBLIC_KEY = 'YOUR_PUBLIC_KEY';
+
+    createApp({
+        setup() {
+            // 初始化 EmailJS
+            onMounted(() => {
+                emailjs.init(EMAILJS_PUBLIC_KEY);
+            });
+
+            // Header Logic (Updated for Language Switcher & New Navigation)
+            const isMobileMenuOpen = ref(false);
+            const isDestDropdownOpen = ref(false);
+            const isLangDropdownOpen = ref(false); // 新增
+            const currentLang = ref('中文');      // 新增
+            const isWechatQR = ref(false);
+            const isFacebookQR = ref(false);
+
+            // 语言切换函数
+            const switchLang = (lang) => {
+                currentLang.value = lang;
+                isLangDropdownOpen.value = false;
+                console.log('Language switched to:', lang);
+            };
+            
+            // 更新导航栏链接以匹配新页眉结构 (保留"目的地"高亮)
+            const navLinks = [
+                { name: '首页', url: 'index CN.html' },
+                { 
+                    name: '目的地', 
+                    url: 'destination main CN.html', 
+                    current: true, // 保持高亮
+                    subLinks: [
+                        { name: '法国', url: 'destination france.html' },
+                        { name: '意大利', url: 'destination italy.html' },
+                        { name: '瑞士', url: 'destination switzerland.html' },
+                        { name: '西班牙', url: 'destination spain.html' }
+                    ] 
+                },
+                { name: '定制旅行', url: 'custom CN.html' },
+                { name: '机票服务', url: 'tickets CN.html' },
+                { name: '关于我们', url: 'about CN.html' },
+                { name: '联系我们', url: 'contact CN.html' },
+                { name: '博客', url: 'blog CN.html' }
+            ];
+
+            // Page Logic
+            const activeSection = ref('dates');
+            const subMenu = [
+                { name: '日期与价格', id: 'dates' },
+                { name: '线路介绍', id: 'overview' },
+                { name: '详细行程', id: 'itinerary' },
+                { name: '住宿', id: 'accommodation' },
+                { name: '自费项目', id: 'optionals' },
+                { name: '包含/不含', id: 'includes' },
+            ];
+            
+            // Carousel Logic
+            const currentHeroIndex = ref(0);
+            
+            // HERO IMAGES FOR Spain & Portugal
+            const heroImages = [
+                'https://images.unsplash.com/photo-1549271501-447720977207?q=80&w=2070&auto=format&fit=crop', // Sagrada Familia
+                'https://images.unsplash.com/photo-1540690059379-379893d7c49b?q=80&w=2070&auto=format&fit=crop', // Alhambra
+                'https://images.unsplash.com/photo-1555881400-65c2b92f7200?q=80&w=2070&auto=format&fit=crop'  // Lisbon
+            ];
+
+            const nextSlide = () => {
+                currentHeroIndex.value = (currentHeroIndex.value + 1) % heroImages.length;
+            };
+            const prevSlide = () => {
+                currentHeroIndex.value = (currentHeroIndex.value - 1 + heroImages.length) % heroImages.length;
+            };
+
+            // Modal Logic
+            const activeOptional = ref(null);
+            const openOptionalModal = (item) => { activeOptional.value = item; };
+            const closeOptionalModal = () => { activeOptional.value = null; };
+
+            // ============ Data Logic (Spain & Portugal Content) ============
+            const tour = reactive({
+                title: '2026西葡双牙11日深度游',
+                engName: 'Spain & Portugal In-Depth Tour - 11 Days / 10 Nights',
+                highlights: [
+                    '高迪之城：巴塞罗那圣家堂与米拉之家',
+                    '马德里：皇宫奢华与太阳门广场的活力',
+                    '罗卡角：“陆止于此，海始于斯”的天涯海角',
+                    '阿尔罕布拉宫：摩尔人留下的红色城堡',
+                    '塞维利亚：西班牙广场与弗拉明戈的热情',
+                    '波尔图：杜罗河畔的酒香与蓝瓷砖',
+                    '龙达：悬崖上的白色小镇与斗牛场',
+                ],
+                singleSupplement: '700 $',
+                
+                // Optional Items from Doc
+                optionalItems: [
+                    { 
+                        id: 1,
+                        name: '弗拉明戈舞表演',
+                        price: 60, 
+                        unit: '€',
+                        currency: 'EUR',
+                        shortDesc: '西班牙国粹，感受激情舞蹈。',
+                        description: '欣赏西班牙国粹弗拉明戈舞，感受吉他、歌唱与舞蹈交织出的激情与哀愁，体验安达卢西亚文化的灵魂。',
+                        detailImage: 'https://images.unsplash.com/photo-1504626835342-d1629e623ec2?q=80&w=2069&auto=format&fit=crop'
+                    },
+                    { 
+                        id: 2,
+                        name: '西葡海鲜餐',
+                        price: 30, 
+                        unit: '€',
+                        currency: 'EUR',
+                        shortDesc: '品尝地道海鲜风味。',
+                        description: '享用新鲜美味的西葡特色海鲜大餐，包含多种当地海产，感受大西洋与地中海的馈赠。（价格为预估，视具体餐厅而定）',
+                        detailImage: 'https://images.unsplash.com/photo-1559742811-822873691df8?q=80&w=1974&auto=format&fit=crop'
+                    }
+                ],
+                
+                // Dates from Word Doc
+                dates: [
+                    { start: '14/02/2026', price: '1 588 $', guaranteed: true },
+                    { start: '04/04/2026', price: '1 588 $', guaranteed: true },
+                    { start: '01/05/2026', price: '1 588 $', guaranteed: true },
+                    { start: '06/06/2026', price: '1 588 $', guaranteed: true },
+                    { start: '11/07/2026', price: '1 588 $', guaranteed: true },
+                    { start: '25/07/2026', price: '1 588 $', guaranteed: true },
+                    { start: '08/08/2026', price: '1 588 $', guaranteed: true },
+                    { start: '22/08/2026', price: '1 588 $', guaranteed: true },
+                    { start: '12/09/2026', price: '1 588 $', guaranteed: true },
+                    { start: '01/10/2026', price: '1 588 $', guaranteed: true },
+                    { start: '24/10/2026', price: '1 588 $', guaranteed: true },
+                    { start: '14/11/2026', price: '1 588 $', guaranteed: true },
+                    { start: '22/12/2026', price: '1 588 $', guaranteed: true }
+                ],
+                
+                hotelList: [
+                    { city: '马德里 (Madrid)', name: '当地三星级酒店' },
+                    { city: '萨拉曼卡 (Salamanca)', name: '当地三星级酒店' },
+                    { city: '波尔图 (Porto)', name: '当地三星级酒店' },
+                    { city: '科英布拉 (Coimbra)', name: '当地三星级酒店' },
+                    { city: '里斯本 (Lisbon)', name: '当地三星级酒店' },
+                    { city: '塞维利亚 (Seville)', name: '当地三星级酒店' },
+                    { city: '科尔多瓦 (Cordoba)', name: '当地三星级酒店' },
+                    { city: '格拉纳达 (Granada)', name: '当地三星级酒店' },
+                    { city: '瓦伦西亚 (Valencia)', name: '当地三星级酒店' },
+                    { city: '巴塞罗那 (Barcelona)', name: '当地三星级酒店' }
+                ],
+                
+                includes: [
+                    '酒店：全程当地三星级酒店双人间（行程所列酒店住宿）；',
+                    '交通：旅游巴士或商务旅行车（注：视报名人数安排）；',
+                    '司导：专职巴士司机+华人中文导游或者全程中文华人司机兼导游服务（注：如发9座或者以下小车，安排华人司机兼导游服务）；',
+                    '用餐：酒店早餐；',
+                    '行李：1件23公斤行李和1件随身手提行李；'
+                ],
+                excludes: [
+                    '行程所列景点门票；',
+                    '司机和导游小费每人每天10欧元，共计110欧元每人，小孩与大人同价',
+                    '必付自费项目：30欧元/人（西葡全程进城费和城市税（≥12周岁全价；6-11周岁半价；≤5周岁免费）',
+                    '单间差：仅限于不愿意拼房，要求住单间的客人需支付单间差，需全程购买（若团上临时加购，需支付双份单间差费用）；',
+                    '午晚餐：导游会向您推荐，自愿选择；',
+                    '额外自费项目：弗拉明戈60 €/人 餐费：西葡海鲜自助午餐25-30 €/人 西葡海鲜餐25-30 €/人。',
+                    '个人旅行保险：出境旅游请务必购买保险，以保证在出现个人意外，例如：生病、丢失财物等情况时，有保险公司保障您的权益；',
+                    '因气候，罢工等不可抗力因素或飞机、车辆、船只等交通工具发生故障导致时间延误或行程更改引起的经济损失和责任；',
+                    '酒店内电话、传真、洗熨、收费电视、理发、烟酒、饮料、行李搬运等私人费用；其他未注明的地接费用（签证、机票、旅游保险等）；',
+                    '一切个人消费及费用包含中未提及的任何费用；'
+                ],
+
+                // Itinerary Data - Spain & Portugal
+                daysData: [
+                    { 
+                        day: 1, 
+                        title: '巴塞罗那 – 萨拉戈萨 – 马德里', 
+                        transport: '巴士', 
+                        content: '早上8：30于巴塞罗那集合后，前往萨拉戈萨游览【比拉尔圣母大教堂】，这座巴洛克式建筑瑰宝不仅是西班牙最重要的朝圣地之一，其11个彩色琉璃圆顶在阳光下熠熠生辉。【阿尔哈菲莉亚宫】，这座11世纪的伊斯兰宫殿堪称"西班牙的阿罕布拉"，其精妙的马蹄形拱廊、繁复的灰泥雕花与后来加建的哥特式元素，见证了基督教收复失地运动的辉煌历史。之后前往马德里。',
+                        image: 'https://images.unsplash.com/photo-1549271501-447720977207?q=80&w=2070&auto=format&fit=crop', // Placeholder for Zaragoza/Spain
+                        hotel: '入住马德里或其周边酒店。',
+                        meals: '早餐：自理 午餐：自理 晚餐：自理',
+                        isOpen: true 
+                    },
+                    { 
+                        day: 2, 
+                        title: '马德里 – 托莱多 – 萨拉曼卡', 
+                        transport: '巴士', 
+                        content: '早上前往【拉斯班塔斯斗牛场】，之后游览【马德里王宫】（自费项目）仅次于凡尔赛宫和维也纳美泉宫的欧洲第三大皇宫。是世界上保存最完整而且最精美的宫殿之 一。皇宫外观呈正方形结构，富丽堂皇，宫内藏有无数的金银器 皿和绘画、瓷器、壁毯及其他 皇室用品。它是波旁代表性的文化遗迹，在欧洲各国皇宫中堪称数一数二。现在，该皇宫已被辟 为博物院，供游人参观。 [太阳门广场] 太阳门广场位于马德里市中心，呈半圆形，有10条街道呈放射状向外延伸。保安局大楼是广场 中突出的建筑物，这是一座18世纪末新古典风格的宫殿式建筑。建成后，曾作为马德里的中心 邮局、陆军司令部和政治部。太阳门广场是个具有历史意义的广场，也是能体现马德里风土人情 的地方。之后参观【马约尔广场】【格兰大道】。蔡依林歌中提到马德里不思议，这个城市 有着古老的文明，现代的艺术，融合的民族，奔放的马德里人还有喧嚣的夜。<br>结束马德里游览之后，前往西班牙古 城-托莱多，[托莱多古城] 托莱多曾被阿拉伯摩尔人、基督教、犹太教、回教、罗马人的管治，因此留下了各个不同时代的 烙印。城内的建筑物涵盖哥特式、摩尔式、巴洛克式和新古典主义的 教堂，修道院、王宫、寺 庙、城墙、石桥、民居保存十分完整。是一座多元文化艺术结晶的活宝库。1986年被联合国授 予【人类文化遗产城市】称号。[托莱多大教堂] 古城内的著名建筑，当首选托莱多大教堂，大教堂始建于1226年，直到15世纪末才完成，历时 数百年。大教堂建筑装铈工程之庞大、繁复、精致、丰富可见一斑。',
+                        image: 'https://images.unsplash.com/photo-1539037116277-4db20889f2d4?q=80&w=2070&auto=format&fit=crop',
+                        hotel: '萨拉曼卡或其周边酒店',
+                        meals: '早餐：酒店内',
+                        isOpen: false 
+                    },
+                    { 
+                        day: 3, 
+                        title: '萨拉曼卡 – 波尔图', 
+                        transport: '巴士', 
+                        content: '早上萨拉曼卡酒店出发前往葡萄牙的波尔图。因为盛产同名葡萄酒而盛名，酒贸易也让这座港口城市有多元化的历史。穿过老城的小街小巷，来到了【里贝拉广场】，或驻足留影、或品味美食，感受来自大西洋海风的滋润，来到里贝拉码头，感受充满魅力的中世纪老建筑、古老的小街小巷、对岸加亚码头的波尔图酒窖、唐路易斯一世铁桥及漂浮在河上的传统翘尾小船。随后参观外观哥德式及巴洛克式的混合建筑--【波尔图大教堂】、波尔图标志性建筑--【牧师塔】。',
+                        image: 'https://images.unsplash.com/photo-1555881400-65c2b92f7200?q=80&w=2070&auto=format&fit=crop', // Porto
+                        hotel: '波尔图或其周边酒店',
+                        meals: '早餐：酒店内',
+                        isOpen: false 
+                    },
+                    { 
+                        day: 4, 
+                        title: '波尔图 – 科英布拉', 
+                        transport: '巴士', 
+                        content: '早餐后前往科英布拉，自由品尝特色美食。【科英布拉大学】就分散在这座小山城里，参观华丽 的【科英布拉大学巴洛克式图书馆】（自费项目），堪称"书籍的圣殿"——金箔装饰的天花板描 绘着知识之光，中国风的漆木书柜珍藏着30万册古籍，而馆内栖息的蝙蝠家族两百年来默默守 护着藏书不受虫害。特别提示：参观时请保持绝对安静，连相机快门声都是对这座18世纪智慧 殿堂的亵渎。随后参观罗马天主教建筑--【科英布拉老教堂】，这座12世纪的罗马式建筑藏着令 人动容的细节：回廊柱头上雕刻的圣经故事，彩绘穹顶下依然运作的中世纪日晷，以及学生毕业 传统中必须亲吻的"真理之嘴"石雕。',
+                        image: 'https://images.unsplash.com/photo-1589825633772-2736151f47f2?q=80&w=2070&auto=format&fit=crop',
+                        hotel: '科英布拉或其周边酒店',
+                        meals: '早餐：酒店内',
+                        isOpen: false 
+                    },
+                    { 
+                        day: 5, 
+                        title: '科英布拉 – 辛特拉 – 罗卡角 – 卡斯凯什', 
+                        transport: '巴士', 
+                        content: '酒店早餐后，前往辛特拉。【辛特拉老区】有很多盛名的城堡和宫殿，耸立于老城中心的【辛特拉王宫】以其标志性的双圆锥形烟囱闻名。从辛特拉一路往西，我们沿着崎岖的悬崖公路驶向" 陆止于此，海始于斯"的【罗卡角】。站在欧洲大陆最西端的140米高崖上，脚下是惊涛拍岸的 壮阔景象。从罗卡角返程里斯本的路上，途经度假胜地——卡斯凯什，这座昔日的渔村因007小 说《皇家赌场》而闻名，探索这座风情海滨小镇，在这里偃意一段悠闲的午后时光。',
+                        image: 'https://images.unsplash.com/photo-1562254392-4959a4c0db46?q=80&w=2070&auto=format&fit=crop', // Cabo da Roca
+                        hotel: '里斯本或其周边酒店',
+                        meals: '早餐：酒店内',
+                        isOpen: false
+                    },
+                    { 
+                        day: 6, 
+                        title: '里斯本 – 塞维利亚', 
+                        transport: '巴士', 
+                        content: '葡萄牙人说：“没有看过里斯本的人等于没有见过美景”，这恰恰证明了这座城市的美给予这里 的人们自信。在这休闲的日子中，观光雄伟的【425大桥】，这座欧洲最长的悬索桥以其独特的 红色桥身与旧金山金门大桥遥相呼应；华丽的【热罗尼姆修道院】，这座曼努埃尔式建筑的巅峰 之作令人屏息：精雕细琢的拱门如海浪般起伏，修道院回廊的每一根石柱都雕刻着不同的航海元 素，而这里长眠着葡萄牙诗魂卡蒙斯与航海家达伽马。还有那见证历史的【贝伦塔】和【航海纪念碑】，它们见证了无数航海家的启航与归程。当然也可以享用葡式蛋挞，之后驱车前往塞维利 亚。',
+                        image: 'https://images.unsplash.com/photo-1513476632737-2309ce99f2b9?q=80&w=2070&auto=format&fit=crop',
+                        hotel: '塞维利亚或其周边酒店',
+                        meals: '早餐：酒店内',
+                        isOpen: false 
+                    },
+                    { 
+                        day: 7, 
+                        title: '塞维利亚 – 科尔多瓦', 
+                        transport: '巴士', 
+                        content: '塞维利亚让时光倒流"——这座安达卢西亚的首府，完美诠释了西班牙的黄金时代与浪漫灵魂。 【西班牙广场】开始，这座为1929年博览会建造的半圆形广场，融合了文艺复兴与摩尔复兴风 格，彩瓷镶嵌的各省份长椅在晨光中闪烁；世界最大的哥特式教堂——【塞维利亚大教堂】（ 自费项目）与它隔壁的【塞维利亚王宫】（自费项目）也成为这个城市中的一抹亮色，令人难以 忘记的建筑风格吸引游客前来驻足观看。之后前往科尔多瓦，一个有数不尽数的文化遗产和古迹 的城市。漫步在【罗马桥】上和【百花巷】里，流连于【科尔多瓦大教堂】中。',
+                        image: 'https://images.unsplash.com/photo-1550979377-62f92d627f37?q=80&w=2070&auto=format&fit=crop',
+                        hotel: '科尔多瓦或其周边酒店',
+                        meals: '早餐：酒店内',
+                        isOpen: false 
+                    },
+                    { 
+                        day: 8, 
+                        title: '科尔多瓦 – 龙达 – 米哈斯 – 格拉纳达', 
+                        transport: '巴士', 
+                        content: '迎着地中海的风，从科尔多瓦一路向南。我们来到了【龙达小镇】，这座建立在悬崖边上的小城 ，令人惊叹而又向往。在老城区里驻足，观光【新桥】和【斗牛场】。龙达老城的心脏是横跨百 米深渊的【新桥】，站在桥中央的观景台，脚下是刀削斧劈的悬崖，谷底细如银线的瓜达莱温河 静静流淌。建于1785年的【龙达斗牛场】则诉说着现代斗牛艺术的起源，其双层的砂岩拱廊内 ，斗牛士的披风依然如血色般鲜艳。之后前往“白色小镇”---米哈斯，悠闲的偃意下午时光。 在【佩尔圣母礼教堂】，您将见到守护渔民的圣母像，其华丽的巴洛克祭坛与质朴的白墙形成绝 妙对比。结束今日的行程，前往格拉纳达并入住酒店。',
+                        image: 'https://images.unsplash.com/photo-1564750976214-419b43d3b73b?q=80&w=2056&auto=format&fit=crop',
+                        hotel: '格拉纳达或其周边酒店',
+                        meals: '早餐：酒店内',
+                        isOpen: false 
+                    },
+                    { 
+                        day: 9, 
+                        title: '格拉纳达 – 瓦伦西亚', 
+                        transport: '巴士', 
+                        content: '格拉纳达既有摩尔人修建的宫殿，也有基督教文艺复兴时期的建筑。 早餐后游览【阿尔罕布拉宫】（自费项目）。"世间若有天堂，必是阿尔罕布拉的模样"——这座屹立在格拉纳达萨比卡山 上的红色城堡——【阿尔罕布拉宫】，又叫“红堡”，是阿拉伯式宫殿庭院的代表，是伊斯兰 艺术在欧洲的巅峰之作，也是摩尔人在伊比利亚半岛最后的政治文化中心。作为联合国教科文组 织认定的世界文化遗产，它完美诠释了"人间天堂"的伊斯兰园林理念。观光结束后，启程前往瓦 伦西亚。',
+                        image: 'https://images.unsplash.com/photo-1540690059379-379893d7c49b?q=80&w=2070&auto=format&fit=crop',
+                        hotel: '瓦伦西亚或其周边酒店',
+                        meals: '早餐：酒店内',
+                        isOpen: false 
+                    },
+                    { 
+                        day: 10, 
+                        title: '瓦伦西亚 – 巴塞罗那', 
+                        transport: '巴士', 
+                        content: '瓦伦西亚是欧洲的柑橘产区，满城的柑橘树便是它的城市标志。虽然沿袭了西班牙的热闹与欢快 ，却没有大城市那般繁忙的节奏，慵懒舒适是这座城被赋予的特质。在老城区里观光【市政广场 】、【艺术科学城】及瓦伦西亚的精神心脏——【圣女广场】等景点，也可以尝试着发现那些 隐匿于此的小店。之后前往巴塞罗那。',
+                        image: 'https://images.unsplash.com/photo-1520542353723-e226d40089c9?q=80&w=2070&auto=format&fit=crop',
+                        hotel: '巴塞罗那或其周边酒店',
+                        meals: '早餐：酒店内',
+                        isOpen: false 
+                    },
+                    { 
+                        day: 11, 
+                        title: '巴塞罗纳', 
+                        transport: '巴士', 
+                        content: '巴塞罗那是一座让现实与幻想共舞的城市，您将开启一场穿越时空的建筑奇幻之旅。这座加泰罗 尼亚的首府，以其无与伦比的创造力与地中海式的热情，邀请您书写属于自己的城市故事。<br>[奎尔公园] （自费项目）奎尔公园是巴塞罗那最耀眼的景点之一，也是高迪众多作品中关于园林设计的典范之作。这里的人工景观看上去比自然景观还要自然。色彩及线条的运用也发挥到了极致。透过公园的高处还将看到城市全貌。<br>[圣家堂] （自费项目）神圣之家——圣家堂，一座由许多尖塔和楼台组成的教堂群体，加泰罗尼亚著名建筑家高迪的杰作。始建于1884年，细长的线条是主要特色，圆顶和内部结构则显示出新哥特风格。<br>[米拉之家] （自费项目）米拉之家建于1906年至1912年间，坐落在西班牙的巴塞罗那市区里的Eixample扩建区、格拉西亚大道上。米拉之家的拱顶，呈现抛物线或悬链线的形状。米拉之家是高迪设计的最后一个私人住宅，常被称为 La Pedrera(加泰罗尼亚语，意为“采石场”)。三面波浪型的墙面，扭曲回绕的铁条和铁板构成的阳台栏杆、宽大的窗户非常吸人眼球，1986 年，米拉之家被Caixa de Catalunya银行买下，耗巨资整修。现在的一楼是银行的基金会举办展览的场地。米拉之家的六层、顶楼和屋顶阳台对外开放，楼顶的烟囱十分特别，在阳台上还可以俯瞰部分市区街道，遥望圣家堂。<br>[哥伦布广场]哥伦布广场，是巴塞罗那市内最大和最著名的广场之一。它紧邻卡斯提尔大道，周围大厦林立，位处车水马龙的闹区。广场中央矗立著哥伦布的雕像，作为15世纪西班牙海上强国的标志。',
+                        image: 'https://images.unsplash.com/photo-1583779457094-00688047b672?q=80&w=2070&auto=format&fit=crop',
+                        hotel: '自理',
+                        meals: '早餐：酒店内',
+                        isOpen: false 
+                    }
+                ]
+            });
+
+            // ============ Form Logic ============
+            const formHighlight = ref(false);
+            const isSubmitted = ref(false);
+            const attemptedSubmit = ref(false);
+            const isOptionalsOpen = ref(false); 
+            const isSending = ref(false); 
+
+            const formData = reactive({
+                name: '',
+                countryCode: '+33',
+                phone: '',
+                email: '',
+                date: '',
+                passengers: 2,
+                selectedOptionals: [], 
+                remarks: ''
+            });
+
+            const phoneError = computed(() => {
+                if (!formData.phone) return null;
+                const lengths = { '+33': 10, '+86': 11, '+852': 8, '+44': 10, '+1': 10 };
+                const required = lengths[formData.countryCode] || 10;
+                return formData.phone.length !== required ? `号码应为 ${required} 位数字` : null;
+            });
+
+            const optionalEURTotal = computed(() => {
+                // Sum only EUR items
+                return formData.selectedOptionals
+                    .filter(item => item.currency === 'EUR')
+                    .reduce((sum, item) => sum + item.price, 0) * formData.passengers;
+            });
+
+            const calculatedPrice = computed(() => {
+                if (!formData.date || !formData.passengers) return 0;
+                const dateObj = tour.dates.find(d => d.start === formData.date);
+                if (!dateObj) return 0;
+                
+                // Base Price (USD)
+                const pricePerPerson = parseInt(dateObj.price.replace(/\D/g, ''));
+                let total = pricePerPerson * formData.passengers;
+
+                // Add Single Supplement (USD)
+                const singleSupplement = parseInt(tour.singleSupplement.replace(/\D/g, ''));
+                if (formData.passengers % 2 !== 0) {
+                    total += singleSupplement;
+                }
+
+                // Add USD Optional Items (None in this specific tour based on doc, but kept for logic consistency)
+                const usdOptionals = formData.selectedOptionals
+                    .filter(item => item.currency === 'USD')
+                    .reduce((sum, item) => sum + item.price, 0) * formData.passengers;
+                
+                total += usdOptionals;
+
+                return total;
+            });
+
+            const hasSingleSupplement = computed(() => {
+                return formData.passengers % 2 !== 0;
+            });
+
+            const hasMixedCurrency = computed(() => {
+                return formData.selectedOptionals.some(item => item.currency === 'EUR');
+            });
+
+            // Custom Toggle Logic for Optionals
+            const toggleOptionalSelection = (item) => {
+                const index = formData.selectedOptionals.findIndex(opt => opt.id === item.id);
+                if (index > -1) {
+                    formData.selectedOptionals.splice(index, 1);
+                } else {
+                    formData.selectedOptionals.push(item);
+                }
+            };
+            
+            const isOptionalSelected = (item) => {
+                return formData.selectedOptionals.some(opt => opt.id === item.id);
+            };
+
+            const handleBookingScroll = (date = '') => {
+                if (date) {
+                    formData.date = date;
+                }
+                const element = document.getElementById('contact');
+                if (element) {
+                    const offset = 180;
+                    const bodyRect = document.body.getBoundingClientRect().top;
+                    const elementRect = element.getBoundingClientRect().top;
+                    const elementPosition = elementRect - bodyRect;
+                    const offsetPosition = elementPosition - offset;
+                    window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+                    
+                    formHighlight.value = true;
+                    setTimeout(() => {
+                        formHighlight.value = false;
+                    }, 3000);
+                }
+            };
+
+            const handleFormSubmit = () => {
+                attemptedSubmit.value = true;
+                const hasEmpty = !formData.name || !formData.phone || !formData.email || !formData.date || !formData.passengers;
+
+                if (hasEmpty || phoneError.value) {
+                    nextTick(() => {
+                        const firstError = document.querySelector('.input-error');
+                        if (firstError) {
+                            firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }
+                    });
+                    return;
+                }
+                setTimeout(() => {
+                    isSubmitted.value = true;
+                }, 500);
+            };
+
+            const resetForm = () => {
+                isSubmitted.value = false;
+                attemptedSubmit.value = false;
+                formData.date = '';
+                formData.passengers = 2;
+                formData.selectedOptionals = [];
+                formData.remarks = '';
+            };
+
+            // Toggle Logic
+            const isAllExpanded = ref(false);
+            const toggleDay = (index) => {
+                tour.daysData[index].isOpen = !tour.daysData[index].isOpen;
+            };
+            const toggleAllDays = () => {
+                isAllExpanded.value = !isAllExpanded.value;
+                tour.daysData.forEach(day => {
+                    day.isOpen = isAllExpanded.value;
+                });
+            };
+
+            // 滚动监听
+            const handleScroll = () => {
+                const scrollPosition = window.scrollY + 250;
+                subMenu.forEach(section => {
+                    const element = document.getElementById(section.id);
+                    if (element && element.offsetTop <= scrollPosition) {
+                        activeSection.value = section.id;
+                    }
+                });
+            };
+
+            onMounted(() => {
+                setInterval(nextSlide, 5000);
+                
+                let isScrolling = false;
+                window.addEventListener('scroll', () => {
+                    if (!isScrolling) {
+                        window.requestAnimationFrame(() => {
+                            handleScroll();
+                            isScrolling = false;
+                        });
+                        isScrolling = true;
+                    }
+                });
+            });
+
+            return {
+                isMobileMenuOpen, isDestDropdownOpen, isLangDropdownOpen, currentLang, switchLang,
+                isWechatQR, isFacebookQR,
+                navLinks, subMenu, activeSection, 
+                heroImages, currentHeroIndex, nextSlide, prevSlide,
+                tour, 
+                toggleDay, toggleAllDays, isAllExpanded,
+                formData, formHighlight, handleBookingScroll, handleFormSubmit, 
+                phoneError, attemptedSubmit, isSubmitted, resetForm, calculatedPrice, hasSingleSupplement,
+                optionalEURTotal, hasMixedCurrency,
+                // Modal specific
+                activeOptional, openOptionalModal, closeOptionalModal,
+                // Accordion specific
+                isOptionalsOpen, toggleOptionalSelection, isOptionalSelected,
+                isSending
+            };
+        }
+    }).mount('#app');
+</script>
+</body>
+</html>

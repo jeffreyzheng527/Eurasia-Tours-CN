@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>博客 - Eurasia Tours 欧美亚旅游</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Noto Sans SC', sans-serif; }
+        h1, h2, h3 { font-family: 'Playfair Display', 'Noto Sans SC', serif; }
+        .text-brand { color: #b91c1c; }
+        .bg-brand { background-color: #b91c1c; }
+        
+        /* 新增：来自 Tickets 页面的样式 */
+        .hover\:bg-brand:hover { background-color: #991b1b; }
+
+        .hero-text-shadow { text-shadow: 0 4px 20px rgba(0, 0, 0, 0.6); }
+        .nav-link-spacing { letter-spacing: 0.1em; }
+
+        .dropdown-enter-active { transition: all 0.3s ease-out; }
+        .dropdown-leave-active { transition: all 0.2s ease-in; }
+        .dropdown-enter-from, .dropdown-leave-to { opacity: 0; transform: translateY(12px) scale(0.98); }
+
+        .qr-fade-enter-active, .qr-fade-leave-active { transition: all 0.3s ease-out; }
+        .qr-fade-enter-from, .qr-fade-leave-to { opacity: 0; transform: translateY(10px); }
+
+        .img-container { display: flex; align-items: center; justify-content: center; overflow: hidden; background-color: #fff; }
+        .img-container img { width: 100%; height: 100%; object-fit: contain; }
+        .cover-img img { object-fit: cover; }
+        
+        /* 瀑布流布局 */
+        .masonry-grid { column-count: 1; column-gap: 1.5rem; }
+        @media (min-width: 640px) { .masonry-grid { column-count: 2; } }
+        @media (min-width: 1024px) { .masonry-grid { column-count: 3; } }
+        @media (min-width: 1536px) { .masonry-grid { column-count: 4; } }
+        .masonry-item { break-inside: avoid; margin-bottom: 1.5rem; }
+
+        /* 详情页弹窗动画 */
+        .modal-enter-active, .modal-leave-active { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        .modal-enter-from, .modal-leave-to { opacity: 0; transform: translateY(100px); }
+
+        /* 手机端菜单动画 */
+        .mobile-menu-enter-active, .mobile-menu-leave-active { transition: all 0.3s ease; }
+        .mobile-menu-enter-from, .mobile-menu-leave-to { opacity: 0; transform: translateY(-10px); }
+
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #e5e7eb; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-white text-gray-800 antialiased">
+
+<div id="app">
+    <header class="fixed w-full top-0 z-[100] bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col lg:flex-row items-center justify-between py-2 lg:h-24">
+                <div class="flex items-center justify-between w-full lg:w-auto">
+                    <a href="index CN.html" class="flex items-center group">
+                        <img src="https://www.eurasia-tours.fr/assets/logo-word-rNz8dsz6.jpg" 
+                             alt="Logo" class="h-10 md:h-12 w-auto object-contain transition-transform group-hover:scale-105 mix-blend-multiply">
+                    </a>
+                    <button class="lg:hidden relative z-50 text-2xl p-2 text-gray-700 focus:outline-none cursor-pointer" @click="isMobileMenuOpen = !isMobileMenuOpen">
+                        <i class="fas" :class="isMobileMenuOpen ? 'fa-times' : 'fa-bars'"></i>
+                    </button>
+                </div>
+
+                <nav class="hidden lg:flex flex-1 items-center justify-end ml-8 max-w-6xl gap-8">
+                    <div v-for="link in navLinks" :key="link.name" class="relative group py-8"
+                         @mouseenter="link.name === '目的地' ? isDestDropdownOpen = true : null"
+                         @mouseleave="isDestDropdownOpen = false">
+                        
+                        <a :href="link.url" 
+                           class="nav-link-spacing relative py-3 px-1 text-sm xl:text-[15px] font-bold uppercase transition-all flex items-center gap-1"
+                           :class="link.current ? 'text-brand' : 'text-gray-700 hover:text-brand'">
+                            {{ link.name }}
+                            <i v-if="link.subLinks" class="fas fa-angle-down text-xs transition-transform duration-300" :class="{'rotate-180': link.name === '目的地' && isDestDropdownOpen}"></i>
+                            
+                            <span class="absolute bottom-1 left-0 h-0.5 bg-brand transition-all duration-300"
+                                  :class="link.current ? 'w-full' : 'w-0 group-hover:w-full'"></span>
+                        </a>
+
+                        <transition name="dropdown">
+                            <div v-if="link.name === '目的地' && isDestDropdownOpen" 
+                                 class="absolute top-full left-1/2 -translate-x-1/2 w-[220px] bg-white shadow-[0_20px_50px_rgba(0,0,0,0.15)] rounded-xl border border-gray-100 p-3 overflow-hidden mt-[-5px]">
+                                <div class="px-4 pb-2 mb-2 border-b border-gray-50 text-[10px] uppercase tracking-[0.2em] text-gray-400 font-bold">热门国家</div>
+                                <ul class="space-y-1">
+                                    <li v-for="sub in link.subLinks" :key="sub.name">
+                                        <a :href="sub.url" class="flex items-center gap-3 px-4 py-3 text-base font-medium text-gray-700 hover:bg-red-50 hover:text-brand rounded-lg transition-all group/item border-l-2 border-transparent hover:border-brand">
+                                            <i class="fas fa-map-pin text-[10px] text-brand opacity-0 group-hover/item:opacity-100 transition-opacity duration-300"></i>
+                                            {{ sub.name }}
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="mt-3 pt-2 border-t border-gray-50">
+                                    <a href="destination main CN.html" class="flex items-center justify-center gap-2 px-4 py-2 text-[13px] font-bold text-brand hover:underline">浏览所有目的地 <i class="fas fa-arrow-right text-[10px]"></i></a>
+                                </div>
+                            </div>
+                        </transition>
+                    </div>
+
+                    <div class="relative group py-8 pl-8 ml-2"
+                         @mouseenter="isLangDropdownOpen = true"
+                         @mouseleave="isLangDropdownOpen = false">
+                        
+                        <span class="absolute left-0 top-1/2 -translate-y-1/2 h-5 w-px bg-gray-200"></span>
+
+                        <a href="#" class="nav-link-spacing relative py-3 px-1 text-sm xl:text-[15px] font-bold uppercase text-gray-700 hover:text-brand transition-all flex items-center gap-2">
+                            <i class="fas fa-globe text-lg"></i>
+                            {{ currentLang }}
+                            <i class="fas fa-angle-down text-xs transition-transform duration-300" :class="{'rotate-180': isLangDropdownOpen}"></i>
+                        </a>
+                        <transition name="dropdown">
+                            <div v-if="isLangDropdownOpen" 
+                                 class="absolute top-full right-0 w-[140px] bg-white shadow-[0_20px_50px_rgba(0,0,0,0.15)] rounded-xl border border-gray-100 p-2 overflow-hidden mt-[-5px]">
+                                <ul class="space-y-1">
+                                    <li>
+                                        <a href="#" @click.prevent="switchLang('中文')" 
+                                           class="flex items-center justify-between px-4 py-2 text-sm font-medium text-gray-700 hover:bg-red-50 hover:text-brand rounded-lg transition-all"
+                                           :class="{'bg-red-50 text-brand': currentLang === '中文'}">
+                                            中文 <i v-if="currentLang === '中文'" class="fas fa-check text-xs"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" @click.prevent="switchLang('English')" 
+                                           class="flex items-center justify-between px-4 py-2 text-sm font-medium text-gray-700 hover:bg-red-50 hover:text-brand rounded-lg transition-all"
+                                           :class="{'bg-red-50 text-brand': currentLang === 'English'}">
+                                            English <i v-if="currentLang === 'English'" class="fas fa-check text-xs"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" @click.prevent="switchLang('Française')" 
+                                           class="flex items-center justify-between px-4 py-2 text-sm font-medium text-gray-700 hover:bg-red-50 hover:text-brand rounded-lg transition-all"
+                                           :class="{'bg-red-50 text-brand': currentLang === 'Française'}">
+                                            Française <i v-if="currentLang === 'Française'" class="fas fa-check text-xs"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </transition>
+                    </div>
+                </nav>
+            </div>
+        </div>
+
+        <transition name="mobile-menu">
+            <nav v-if="isMobileMenuOpen" class="lg:hidden absolute top-full left-0 w-full bg-white border-t border-gray-100 py-6 pb-10 shadow-xl overflow-y-auto max-h-[80vh]">
+                <div class="flex flex-col items-center gap-6">
+                    <a v-for="link in navLinks" :key="link.name" :href="link.url"
+                       class="text-xl font-bold py-2 uppercase tracking-widest transition"
+                       :class="link.current ? 'text-brand' : 'text-gray-800 hover:text-brand'"
+                       @click="isMobileMenuOpen = false">
+                       {{ link.name }}
+                    </a>
+                    
+                    <div class="flex items-center gap-4 mt-2 border-t border-gray-100 pt-6 w-full justify-center flex-wrap px-4">
+                        <button @click="switchLang('中文')" class="px-4 py-1 rounded-full text-sm font-bold transition" :class="currentLang === '中文' ? 'bg-brand text-white' : 'bg-gray-100 text-gray-600'">中文</button>
+                        <button @click="switchLang('English')" class="px-4 py-1 rounded-full text-sm font-bold transition" :class="currentLang === 'English' ? 'bg-brand text-white' : 'bg-gray-100 text-gray-600'">English</button>
+                        <button @click="switchLang('Française')" class="px-4 py-1 rounded-full text-sm font-bold transition" :class="currentLang === 'Française' ? 'bg-brand text-white' : 'bg-gray-100 text-gray-600'">Française</button>
+                    </div>
+
+                    <a href="contact.html" class="bg-brand text-white px-10 py-3 rounded-full font-bold shadow-lg mt-4" @click="isMobileMenuOpen = false">立即咨询</a>
+                </div>
+            </nav>
+        </transition>
+    </header>
+    <main class="pt-24 bg-gray-50/20">
+        <section class="relative h-[40vh] min-h-[350px] flex items-center justify-center bg-gray-900 overflow-hidden cover-img">
+            <img src="https://www.eurasia-tours.fr/assets/banner-B36M69Yx.jpg" class="absolute inset-0 w-full h-full opacity-60">
+            <div class="absolute inset-0 bg-black/30 z-10"></div>
+            <div class="relative z-20 text-center px-4">
+                <h1 class="text-6xl md:text-8xl font-bold text-white mb-4 hero-text-shadow tracking-tight italic">Travel Blog</h1>
+                <div class="h-2 w-24 bg-brand mx-auto mt-6 shadow-lg"></div>
+            </div>
+        </section>
+
+        <section class="py-12 px-4 md:px-8 xl:px-12 w-full max-w-[1920px] mx-auto">
+            <div class="masonry-grid">
+                <div v-for="(post, index) in blogPosts" :key="index" class="masonry-item" @click="openPost(post)">
+                    <article class="group relative bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 border border-gray-100 cursor-pointer text-left">
+                        <div class="relative overflow-hidden">
+                            <img :src="post.image" class="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-700">
+                            <div class="absolute top-4 left-4 bg-black/20 backdrop-blur-md text-white text-[10px] px-3 py-1 rounded-full font-bold uppercase tracking-widest"> # {{ post.topic }} </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-brand transition-colors leading-tight">{{ post.title }}</h3>
+                            <p class="text-gray-500 text-sm leading-relaxed mb-4 line-clamp-3 text-justify">{{ post.desc }}</p>
+                            <div class="flex items-center justify-between pt-4 border-t border-gray-50">
+                                <div class="flex items-center gap-2 text-gray-500">
+                                    <div class="w-8 h-8 rounded-full bg-red-50 flex items-center justify-center overflow-hidden"><img src="https://www.eurasia-tours.fr/assets/logo-word-rNz8dsz6.jpg" class="w-full h-full object-contain mix-blend-multiply"></div>
+                                    <span class="text-[11px] font-bold">欧美亚旅游</span>
+                                </div>
+                                <div class="flex items-center gap-4 text-gray-400"><i class="far fa-heart"></i> <span class="text-[10px]">{{ post.likes }}</span></div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+            <div class="text-center mt-16 mb-24">
+                <button class="px-12 py-4 bg-brand text-white font-bold rounded-full hover:bg-red-800 transition-all duration-300 uppercase text-xs tracking-[0.2em] shadow-xl shadow-red-100"> 加载更多灵感故事 </button>
+            </div>
+        </section>
+
+        <transition name="modal">
+            <div v-if="activePost" class="fixed inset-0 z-[100] flex items-end justify-center px-4 pb-4 sm:pb-8 lg:px-0 text-left">
+                <div class="absolute inset-0 bg-black/60 backdrop-blur-md" @click="activePost = null"></div>
+                <div class="relative w-full max-w-6xl h-[90vh] bg-white rounded-[40px] shadow-2xl overflow-hidden flex flex-col lg:flex-row">
+                    <button class="absolute top-6 right-8 z-[110] w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center text-xl hover:bg-brand hover:text-white transition shadow-lg" @click="activePost = null"><i class="fas fa-times"></i></button>
+
+                    <div class="flex-1 overflow-y-auto p-8 md:p-16 custom-scrollbar">
+                        <div class="max-w-3xl mx-auto space-y-12">
+                            <div class="space-y-6">
+                                <div class="flex items-center gap-4 text-brand font-bold text-xs uppercase tracking-[0.3em]"><span class="px-3 py-1 bg-red-50 rounded-full"># {{ activePost.topic }}</span><span>JAN 11, 2026</span></div>
+                                <h2 class="text-4xl md:text-6xl font-bold text-gray-900 leading-[1.1]">{{ activePost.title }}</h2>
+                                <div class="h-1.5 w-20 bg-brand"></div>
+                            </div>
+                            <img :src="activePost.image" class="w-full aspect-video rounded-3xl object-cover shadow-2xl">
+                            <div class="text-lg text-gray-600 leading-[1.8] space-y-8 text-justify font-light">
+                                <p class="first-letter:text-5xl first-letter:font-bold first-letter:text-brand first-letter:mr-3 first-letter:float-left">欧美亚旅游公司</p>
+                                <p>{{ activePost.desc }}</p>
+                                <p>我们持有法国旅游局的授权许可证，并由GROUPAMA法国保险公司（保险编号N'AA145293）承保。自2000年起，我们致力于为中国游客及全球游客提供遍及欧洲、北美和亚非地区的难忘旅行体验。</p>
+                                <blockquote class="border-l-8 border-brand pl-8 py-4 bg-gray-50 italic text-2xl text-gray-800 rounded-r-2xl font-serif">“旅行不是为了逃避生活，而是为了不让生活逃避我们。”</blockquote>
+                                <p>在2024年，欧美亚旅游公司获得了GTT国际旅行集团的战略投资，成为其首个欧洲子公司。GTT作为北美最大的批发整合商，年销售额超过20亿美元。这一增长将帮助我们将更多的旅行者与欧美亚旅游公司所提供的独特体验相连接。</p>
+                            </div>
+
+                            <div class="lg:hidden pt-12 border-t border-gray-100">
+                                <h4 class="text-xl font-bold border-b-4 border-brand inline-block pb-1 italic mb-6">相关推荐线路</h4>
+                                <div class="bg-white rounded-[32px] overflow-hidden shadow-xl border border-red-50 mb-8 group">
+                                    <img :src="activePost.route.image" class="w-full h-48 object-cover">
+                                    <div class="p-6 space-y-4">
+                                        <h5 class="text-xl font-bold text-gray-900">{{ activePost.route.name }}</h5>
+                                        <div class="flex items-center justify-between">
+                                            <span class="text-2xl font-black text-brand">{{ activePost.route.price }}</span>
+                                            <a :href="activePost.route.url" class="w-10 h-10 bg-brand text-white rounded-full flex items-center justify-center shadow-lg"><i class="fas fa-arrow-right"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="hidden lg:block w-[400px] bg-gray-50/50 border-l border-gray-100 p-12 overflow-y-auto">
+                        <div class="sticky top-0 space-y-8">
+                            <h4 class="text-xl font-bold border-b-4 border-brand inline-block pb-2 italic uppercase tracking-widest">相关推荐线路</h4>
+                            <div class="bg-white rounded-[32px] overflow-hidden shadow-2xl border border-red-100 group">
+                                <div class="relative h-48 overflow-hidden"><img :src="activePost.route.image" class="w-full h-full object-cover group-hover:scale-110 transition duration-500"></div>
+                                <div class="p-8 space-y-4 text-left">
+                                    <h5 class="text-2xl font-bold text-gray-900 leading-tight">{{ activePost.route.name }}</h5>
+                                    <div class="pt-6 border-t border-gray-100 flex items-center justify-between">
+                                        <span class="text-2xl font-black text-brand">{{ activePost.route.price }}</span>
+                                        <a :href="activePost.route.url" class="w-12 h-12 bg-brand text-white rounded-full flex items-center justify-center hover:scale-110 transition shadow-lg"><i class="fas fa-arrow-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </transition>
+    </main>
+
+    <footer class="bg-gray-900 text-gray-400 pt-20 pb-10 border-t-8 border-brand">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-20 text-left">
+                <div class="space-y-6">
+                    <img src="https://www.eurasia-tours.fr/assets/logo-word-rNz8dsz6.jpg" alt="Logo" class="h-10 md:h-12 w-auto object-contain opacity-90 mix-blend-lighten brightness-110">
+                    <p class="text-sm leading-relaxed">自2000年起，欧美亚旅游致力为全球旅客提供最纯正的亚洲深度旅行体验。我们不仅是旅行社，更是您探索东方的文化向导。</p>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold text-lg mb-8 flex items-center gap-3"><span class="w-1 h-5 bg-brand"></span> 资质保障</h4>
+                    <ul class="space-y-4 text-sm">
+                        <li class="flex items-center gap-3"><i class="fas fa-check-circle text-brand"></i> APST 法国旅游保障协会成员</li>
+                        <li class="flex items-center gap-3"><i class="fas fa-check-circle text-brand"></i> IATA 国际航空运输协会认证</li>
+                        <li class="flex items-center gap-3"><i class="fas fa-shield-alt text-brand"></i> 包含 RCP 专业商业责任险</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold text-lg mb-8 flex items-center gap-3"><span class="w-1 h-5 bg-brand"></span> 联系我们</h4>
+                    <ul class="space-y-4 text-sm">
+                        <li class="flex items-start gap-3"><i class="fas fa-map-marker-alt text-brand mt-1 text-left"></i> 30 Rue Ernest Renan, 75015 Paris</li>
+                        <li class="flex items-center gap-3"><i class="fas fa-phone-alt text-brand"></i> 01 56 69 12 80</li>
+                        <li class="flex items-center gap-3"><i class="fas fa-envelope text-brand"></i> contact@eurasiatours.fr</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold text-lg mb-8 flex items-center gap-3"><span class="w-1 h-5 bg-brand"></span> 关注 & 支付</h4>
+                    <div class="flex gap-4 mb-8">
+                        <div class="relative group" @mouseenter="isWechatQR = true" @mouseleave="isWechatQR = false">
+                            <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-[#07C160] transition"><i class="fab fa-weixin text-white"></i></a>
+                            <transition name="qr-fade">
+                                <div v-if="isWechatQR" class="absolute bottom-12 left-1/2 -translate-x-1/2 bg-white p-2 rounded-lg shadow-2xl z-50 w-32 border border-gray-100 text-center"><img src="https://www.eurasia-tours.fr/assets/wechat-account-VZcww6ek.jpg" class="w-full h-auto"><p class="text-[10px] text-gray-500 mt-1">扫码关注微信</p></div>
+                            </transition>
+                        </div>
+                        <div class="relative group" @mouseenter="isFacebookQR = true" @mouseleave="isFacebookQR = false">
+                            <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-[#1877F2] transition"><i class="fab fa-facebook-f text-white"></i></a>
+                            <transition name="qr-fade">
+                                <div v-if="isFacebookQR" class="absolute bottom-12 left-1/2 -translate-x-1/2 bg-white p-2 rounded-lg shadow-2xl z-50 w-32 border border-gray-100 text-center"><img src="https://www.eurasia-tours.fr/assets/3-Bjf7LFHD.png" class="w-full h-auto"><p class="text-[10px] text-gray-500 mt-1">关注 Facebook</p></div>
+                            </transition>
+                        </div>
+                    </div>
+                    <div class="flex gap-4 text-3xl opacity-30">
+                        <i class="fab fa-cc-visa"></i> <i class="fab fa-cc-mastercard"></i> <i class="fab fa-cc-amex"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-10 text-center text-xs tracking-widest uppercase"> © 2026 EURASIA TOURS 欧美亚旅游 · 版权所有 </div>
+        </div>
+    </footer>
+</div>
+
+<script>
+    const { createApp, ref } = Vue;
+    createApp({
+        setup() {
+            // Header Logic (Updated to match Tickets CN)
+            const isDestDropdownOpen = ref(false);
+            const isLangDropdownOpen = ref(false); // 新增
+            const isMobileMenuOpen = ref(false);
+            const currentLang = ref('中文'); // 新增
+
+            const switchLang = (lang) => { // 新增
+                currentLang.value = lang;
+                isLangDropdownOpen.value = false;
+                console.log('Language switched to:', lang);
+            };
+
+            // Footer & Page Specific Logic
+            const isWechatQR = ref(false);
+            const isFacebookQR = ref(false);
+            const activePost = ref(null);
+            
+            // 导航数据 - 更新为 Tickets CN 的结构，并将高亮(current: true)移至“博客”
+            const navLinks = [
+                { name: '首页', url: 'index CN.html' },
+                { 
+                    name: '目的地', 
+                    url: 'destination main CN.html', 
+                    subLinks: [
+                        { name: '法国', url: 'destination france.html' },
+                        { name: '意大利', url: 'destination italy.html' },
+                        { name: '瑞士', url: 'destination switzerland.html' },
+                        { name: '西班牙', url: 'destination spain.html' }
+                    ] 
+                },
+                { name: '定制旅行', url: 'custom CN.html' },
+                { name: '机票服务', url: 'tickets CN.html' },
+                { name: '关于我们', url: 'about CN.html' },
+                { name: '联系我们', url: 'contact CN.html' },
+                { name: '博客', url: 'blog CN.html', current: true } // 修改：添加 current: true
+            ];
+
+            const blogPosts = ref([
+                { title: "巴黎最浪漫的日落观赏点", desc: "避开人潮，寻找塞纳河畔的宝藏长椅。作为旅游业专业协会（APST）成员，欧美亚旅游公司得到了业内专业人士和客户的支持和鼓励，深受广大客户信任。", image: "https://www.eurasia-tours.fr/static/aboutus2/images/3.jpg", topic: "目的地指南", likes: "1.2k", route: { name: "穿越法兰西 · 浪漫之都8日游", image: "https://www.eurasia-tours.fr/static/aboutus2/images/3.jpg", price: "€ 1,899", url: "index.html#tours" } },
+                { title: "2026 商务差旅全球指南", desc: "探讨战略投资后的跨国航线服务提升。凭借与GTT国际旅行集团战略合作，欧美亚旅游公司在美国市场的扩展已具备良好基础。通过利用GTT广泛网络，我们旨在为北美受众提供卓越服务。", image: "https://www.eurasia-tours.fr/static/aboutus2/images/4.jpg", topic: "战略扩展", likes: "856", route: { name: "全球商务菁英 · 商务舱特惠", image: "https://www.eurasia-tours.fr/static/aboutus2/images/4.jpg", price: "€ 2,599", url: "tickets.html" } },
+                { title: "文化深度游：重走丝绸之路", desc: "从西安到中亚，感受跨越千年的文明脉动。我们的中国旅游线路包括北京、西安、桂林和上海等标志性景点，以及云南、成都、西藏、山西等地区的深度游。", image: "https://www.eurasia-tours.fr/static/aboutus2/images/5.jpg", topic: "文化交流", likes: "2.4k", route: { name: "丝绸之路 · 深度探寻行", image: "https://www.eurasia-tours.fr/static/aboutus2/images/5.jpg", price: "€ 3,199", url: "index.html#tours" } },
+                { title: "欧洲自驾：穿越阿尔卑斯", desc: "不仅是目的地，更是沿途风光。探索亚洲、北美、欧洲和北非的各大目的地。我们提供从学习和体育旅游到文化体验和季节性营地的各种服务。", image: "https://www.eurasia-tours.fr/static/aboutus2/images/6.jpg", topic: "深度游", likes: "1.1k", route: { name: "自驾阿尔卑斯 · 环线之旅", image: "https://www.eurasia-tours.fr/static/aboutus2/images/6.jpg", price: "€ 2,799", url: "custom.html" } },
+                { title: "亚洲美食探店记", desc: "从河内米粉到成都火锅，舌尖上的亚洲旅行。自成立以来，欧美亚旅游公司与酒店、票务、邮轮和交通领域的知名企业建立了合作伙伴网络，确保旅程无缝愉快。", image: "https://www.eurasia-tours.fr/static/aboutus2/images/7.jpg", topic: "地道体验", likes: "943", route: { name: "亚洲味蕾之旅 · 美食10日行", image: "https://www.eurasia-tours.fr/static/aboutus2/images/7.jpg", price: "€ 1,699", url: "index.html#tours" } },
+                { title: "研学之旅：在博物馆中成长", desc: "欧洲顶级艺术馆的深度讲解服务现已开启。我们提供从学习和体育旅游到文化体验和季节性营地的各种服务。从2024年底开始，我们还将提供机票和邮轮的在线预订。", image: "https://www.eurasia-tours.fr/assets/2-GO12BKkz.jpg", topic: "研学旅行", likes: "3.1k", route: { name: "艺术之光 · 博物馆巡礼研学营", image: "https://www.eurasia-tours.fr/assets/2-GO12BKkz.jpg", price: "€ 2,299", url: "index.html#tours" } }
+            ]);
+
+            const openPost = (post) => { activePost.value = post; document.body.style.overflow = 'hidden'; };
+            return { 
+                // Header exports
+                isDestDropdownOpen, isLangDropdownOpen, isMobileMenuOpen, currentLang, switchLang, navLinks,
+                // Page exports
+                isWechatQR, isFacebookQR, blogPosts, activePost, openPost 
+            }
+        },
+        watch: { activePost(val) { if (!val) document.body.style.overflow = ''; } }
+    }).mount('#app');
+</script>
+</body>
+</html>
