@@ -337,10 +337,11 @@
             const currentLang = ref('Française'); // 设为法语
 
             const switchLang = (lang) => {
+                // 1. 定义语言和文件名的对应关系
                 const urlMap = {
-                    '中文': 'blog CN.html',
-                    'English': 'blog EN.html',
-                    'Française': 'blog FR.html'
+                    '中文': 'index-cn.html',
+                    'English': 'index-en.html',
+                    'Française': 'index-fr.html'
                 };
                 const targetUrl = urlMap[lang];
                 if (targetUrl) {
@@ -435,4 +436,5 @@
     }).mount('#app');
 </script>
 </body>
+
 </html>
