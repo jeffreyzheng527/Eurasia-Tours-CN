@@ -54,7 +54,7 @@
         <div class="container mx-auto px-4">
             <div class="flex flex-col lg:flex-row items-center justify-between py-2 lg:h-24">
                 <div class="flex items-center justify-between w-full lg:w-auto">
-                    <a href="index CN.html" class="flex items-center group">
+                    <a href="index-cn.html" class="flex items-center group">
                         <img src="https://www.eurasia-tours.fr/assets/logo-word-rNz8dsz6.jpg" 
                              alt="Logo" class="h-10 md:h-12 w-auto object-contain transition-transform group-hover:scale-105 mix-blend-multiply">
                     </a>
@@ -351,12 +351,24 @@
             const isFacebookQR = ref(false);
 
             const switchLang = (lang) => {
-                currentLang.value = lang;
-                isLangDropdownOpen.value = false;
+                // 1. 定义语言和文件名的对应关系
+                const urlMap = {
+                    '中文': 'index-cn.html',
+                    'English': 'index-en.html',
+                    'Française': 'index-fr.html'
+                };
+
+                // 2.以此查找目标文件的 URL
+                const targetUrl = urlMap[lang];
+
+                // 3. 执行跳转
+                if (targetUrl) {
+                    window.location.href = targetUrl;
+                }
             };
 
             const navLinks = [
-                { name: '首页', url: 'index CN.html' },
+                { name: '首页', url: 'index-cn.html' },
                 { 
                     name: '目的地', 
                     url: 'destination main CN.html', 
