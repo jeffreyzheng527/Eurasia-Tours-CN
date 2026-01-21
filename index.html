@@ -444,9 +444,20 @@
             };
 
             const switchLang = (lang) => {
-                currentLang.value = lang;
-                isLangDropdownOpen.value = false;
-                console.log('Language switched to:', lang);
+                // 1. 定义语言和文件名的对应关系
+                const urlMap = {
+                    '中文': 'index CN.html',
+                    'English': 'index EN.html',
+                    'Française': 'index FR.html'
+                };
+
+                // 2.以此查找目标文件的 URL
+                const targetUrl = urlMap[lang];
+
+                // 3. 执行跳转
+                if (targetUrl) {
+                    window.location.href = targetUrl;
+                }
             };
 
             return { 
