@@ -444,10 +444,12 @@
             };
 
             const switchLang = (lang) => {
-                currentLang.value = lang;
-                isLangDropdownOpen.value = false;
-                console.log('Language switched to:', lang);
-            };
+                // 1. 定义语言和文件名的对应关系
+                const urlMap = {
+                    '中文': 'index-cn.html',
+                    'English': 'index-en.html',
+                    'Française': 'index-fr.html'
+                };
 
             return { 
                 isMobileMenuOpen, // 关键修复：确保在 setup 中返回
@@ -461,3 +463,4 @@
 </script>
 </body>
 </html>
+
