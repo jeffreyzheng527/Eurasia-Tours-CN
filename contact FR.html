@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contactez-nous - Eurasia Tours</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* 字体设置保持与 Index FR 一致 */
+        body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+        h1, h2, h3 { font-family: 'Playfair Display', serif; }
+        .text-brand { color: #b91c1c; }
+        .bg-brand { background-color: #b91c1c; }
+        .hover\:bg-brand:hover { background-color: #991b1b; }
+        .hero-text-shadow { text-shadow: 0 4px 15px rgba(0, 0, 0, 0.6); }
+        .nav-link-spacing { letter-spacing: 0.05em; }
+
+        .dropdown-enter-active { transition: all 0.3s ease-out; }
+        .dropdown-leave-active { transition: all 0.2s ease-in; }
+        .dropdown-enter-from, .dropdown-leave-to { opacity: 0; transform: translateY(12px) scale(0.98); }
+
+        .qr-fade-enter-active, .qr-fade-leave-active { transition: all 0.3s ease-out; }
+        .qr-fade-enter-from, .qr-fade-leave-to { opacity: 0; transform: translateY(10px); }
+
+        .cover-img img { object-fit: cover; }
+        
+        .input-error { border: 1.5px solid #ef4444 !important; background-color: #fef2f2 !important; }
+        .fade-in { animation: fadeIn 0.6s ease-out forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+        .mobile-menu-enter-active, .mobile-menu-leave-active { transition: all 0.3s ease; }
+        .mobile-menu-enter-from, .mobile-menu-leave-to { opacity: 0; transform: translateY(-10px); }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 antialiased">
+
+<div id="app">
+    <header class="fixed w-full top-0 z-[100] bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col lg:flex-row items-center justify-between py-2 lg:h-24">
+                <div class="flex items-center justify-between w-full lg:w-auto">
+                    <a href="index CN.html" class="flex items-center group">
+                        <img src="https://www.eurasia-tours.fr/assets/logo-word-rNz8dsz6.jpg" 
+                             alt="Logo" class="h-10 md:h-12 w-auto object-contain transition-transform group-hover:scale-105 mix-blend-multiply">
+                    </a>
+                    <button class="lg:hidden relative z-50 text-2xl p-2 text-gray-700 focus:outline-none cursor-pointer" @click="isMobileMenuOpen = !isMobileMenuOpen">
+                        <i class="fas" :class="isMobileMenuOpen ? 'fa-times' : 'fa-bars'"></i>
+                    </button>
+                </div>
+
+                <nav class="hidden lg:flex flex-1 items-center justify-end ml-4 max-w-7xl gap-4 xl:gap-6">
+                    <div v-for="link in navLinks" :key="link.name" class="relative group py-8"
+                         @mouseenter="link.name === 'Nos destinations' ? isDestDropdownOpen = true : null"
+                         @mouseleave="isDestDropdownOpen = false">
+                        <a :href="link.url" 
+                           class="nav-link-spacing relative py-3 px-1 text-xs xl:text-sm font-bold uppercase transition-all flex items-center gap-1 whitespace-nowrap"
+                           :class="link.current ? 'text-brand' : 'text-gray-700 hover:text-brand'">
+                            {{ link.name }}
+                            <i v-if="link.subLinks" class="fas fa-angle-down text-xs transition-transform duration-300" :class="{'rotate-180': link.name === 'Nos destinations' && isDestDropdownOpen}"></i>
+                            <span class="absolute bottom-1 left-0 h-0.5 bg-brand transition-all duration-300"
+                                  :class="link.current ? 'w-full' : 'w-0 group-hover:w-full'"></span>
+                        </a>
+                        <transition name="dropdown">
+                            <div v-if="link.name === 'Nos destinations' && isDestDropdownOpen" 
+                                 class="absolute top-full left-1/2 -translate-x-1/2 w-[240px] bg-white shadow-[0_20px_50px_rgba(0,0,0,0.15)] rounded-xl border border-gray-100 p-3 overflow-hidden mt-[-5px]">
+                                <div class="px-4 pb-2 mb-2 border-b border-gray-50 text-[10px] uppercase tracking-[0.1em] text-gray-400 font-bold">Pays Populaires</div>
+                                <ul class="space-y-1">
+                                    <li v-for="sub in link.subLinks" :key="sub.name">
+                                        <a :href="sub.url" class="flex items-center gap-3 px-4 py-3 text-base font-medium text-gray-700 hover:bg-red-50 hover:text-brand rounded-lg transition-all group/item border-l-2 border-transparent hover:border-brand">
+                                            <i class="fas fa-map-pin text-[10px] text-brand opacity-0 group-hover/item:opacity-100 transition-opacity duration-300"></i>
+                                            {{ sub.name }}
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="mt-3 pt-2 border-t border-gray-50">
+                                    <a href="destination main FR.html" class="flex items-center justify-center gap-2 px-4 py-2 text-[13px] font-bold text-brand hover:underline">Toutes les destinations <i class="fas fa-arrow-right text-[10px]"></i></a>
+                                </div>
+                            </div>
+                        </transition>
+                    </div>
+
+                    <div class="relative group py-8 pl-4 ml-2"
+                         @mouseenter="isLangDropdownOpen = true"
+                         @mouseleave="isLangDropdownOpen = false">
+                        
+                        <span class="absolute left-0 top-1/2 -translate-y-1/2 h-5 w-px bg-gray-200"></span>
+
+                        <a href="#" class="nav-link-spacing relative py-3 px-1 text-xs xl:text-sm font-bold uppercase text-gray-700 hover:text-brand transition-all flex items-center gap-2 whitespace-nowrap">
+                            <i class="fas fa-globe text-lg"></i>
+                            {{ currentLang }}
+                            <i class="fas fa-angle-down text-xs transition-transform duration-300" :class="{'rotate-180': isLangDropdownOpen}"></i>
+                        </a>
+                        <transition name="dropdown">
+                            <div v-if="isLangDropdownOpen" 
+                                 class="absolute top-full right-0 w-[140px] bg-white shadow-[0_20px_50px_rgba(0,0,0,0.15)] rounded-xl border border-gray-100 p-2 overflow-hidden mt-[-5px]">
+                                <ul class="space-y-1">
+                                    <li>
+                                        <a href="#" @click.prevent="switchLang('中文')" 
+                                           class="flex items-center justify-between px-4 py-2 text-sm font-medium text-gray-700 hover:bg-red-50 hover:text-brand rounded-lg transition-all"
+                                           :class="{'bg-red-50 text-brand': currentLang === '中文'}">
+                                            中文 <i v-if="currentLang === '中文'" class="fas fa-check text-xs"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" @click.prevent="switchLang('English')" 
+                                           class="flex items-center justify-between px-4 py-2 text-sm font-medium text-gray-700 hover:bg-red-50 hover:text-brand rounded-lg transition-all"
+                                           :class="{'bg-red-50 text-brand': currentLang === 'English'}">
+                                            English <i v-if="currentLang === 'English'" class="fas fa-check text-xs"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" @click.prevent="switchLang('Française')" 
+                                           class="flex items-center justify-between px-4 py-2 text-sm font-medium text-gray-700 hover:bg-red-50 hover:text-brand rounded-lg transition-all"
+                                           :class="{'bg-red-50 text-brand': currentLang === 'Française'}">
+                                            Française <i v-if="currentLang === 'Française'" class="fas fa-check text-xs"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </transition>
+                    </div>
+                </nav>
+            </div>
+        </div>
+
+        <transition name="mobile-menu">
+            <nav v-if="isMobileMenuOpen" class="lg:hidden absolute top-full left-0 w-full bg-white border-t border-gray-100 py-6 pb-10 shadow-xl overflow-y-auto max-h-[80vh]">
+                <div class="flex flex-col items-center gap-6">
+                    <a v-for="link in navLinks" :key="link.name" :href="link.url"
+                       class="text-xl font-bold py-2 uppercase tracking-widest transition"
+                       :class="link.current ? 'text-brand' : 'text-gray-800 hover:text-brand'"
+                       @click="isMobileMenuOpen = false">
+                       {{ link.name }}
+                    </a>
+                    
+                    <div class="flex items-center gap-4 mt-2 border-t border-gray-100 pt-6 w-full justify-center flex-wrap px-4">
+                        <button @click="switchLang('中文')" class="px-4 py-1 rounded-full text-sm font-bold transition" :class="currentLang === '中文' ? 'bg-brand text-white' : 'bg-gray-100 text-gray-600'">中文</button>
+                        <button @click="switchLang('English')" class="px-4 py-1 rounded-full text-sm font-bold transition" :class="currentLang === 'English' ? 'bg-brand text-white' : 'bg-gray-100 text-gray-600'">English</button>
+                        <button @click="switchLang('Française')" class="px-4 py-1 rounded-full text-sm font-bold transition" :class="currentLang === 'Française' ? 'bg-brand text-white' : 'bg-gray-100 text-gray-600'">Française</button>
+                    </div>
+
+                    <a href="contact FR.html" class="bg-brand text-white px-10 py-3 rounded-full font-bold shadow-lg mt-4" @click="isMobileMenuOpen = false">Demandez un devis</a>
+                </div>
+            </nav>
+        </transition>
+    </header>
+
+    <main class="pt-24 bg-white">
+        <section class="relative h-[40vh] min-h-[400px] flex items-center justify-center bg-gray-900 overflow-hidden cover-img">
+            <img src="https://strapiprod.knowlarity.com/uploads/contact_us_5a6756504e.jpg" class="absolute inset-0 w-full h-full opacity-60">
+            <div class="absolute inset-0 bg-black/30 z-10"></div>
+            <div class="relative z-20 text-center px-4">
+                <h1 class="text-6xl md:text-8xl font-bold text-white mb-4 hero-text-shadow tracking-tight italic">Contactez-nous</h1>
+                <div class="h-2 w-24 bg-brand mx-auto mt-6 shadow-lg"></div>
+            </div>
+        </section>
+
+        <section class="py-24 container mx-auto px-4 max-w-6xl">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+                
+                <div class="space-y-12">
+                    <div class="space-y-6">
+                        <div class="inline-block px-4 py-1 bg-red-50 text-brand text-sm font-bold rounded-full tracking-widest uppercase">Info Contact</div>
+                        <h2 class="text-4xl font-bold text-gray-900 leading-tight italic">Commencez votre voyage extraordinaire</h2>
+                        <p class="text-lg text-gray-600 leading-relaxed">Qu'il s'agisse de personnaliser un itinéraire exclusif ou de réserver des billets d'avion, notre équipe professionnelle est à votre service. N'hésitez pas à nous contacter via les moyens suivants.</p>
+                    </div>
+
+                    <div class="space-y-8 text-justify">
+                        <div class="flex items-start gap-6">
+                            <div class="w-12 h-12 bg-red-50 rounded-lg flex items-center justify-center flex-shrink-0 text-brand text-xl"><i class="fas fa-map-marker-alt"></i></div>
+                            <div>
+                                <h4 class="font-bold text-gray-900 text-lg">Adresse</h4>
+                                <p class="text-gray-600">30 Rue Ernest Renan, 75015 Paris</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-6">
+                            <div class="w-12 h-12 bg-red-50 rounded-lg flex items-center justify-center flex-shrink-0 text-brand text-xl"><i class="fas fa-phone-alt"></i></div>
+                            <div>
+                                <h4 class="font-bold text-gray-900 text-lg">Téléphone</h4>
+                                <p class="text-gray-600">01 56 69 12 80</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-6">
+                            <div class="w-12 h-12 bg-red-50 rounded-lg flex items-center justify-center flex-shrink-0 text-brand text-xl"><i class="fas fa-envelope"></i></div>
+                            <div>
+                                <h4 class="font-bold text-gray-900 text-lg">E-mail</h4>
+                                <p class="text-gray-600">contact@eurasiatours.fr</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 p-8 lg:p-12 rounded-[2.5rem] shadow-sm border border-gray-100 min-h-[620px] flex flex-col justify-center">
+                    
+                    <form v-if="!isSubmitted" @submit.prevent="handleFormSubmit" novalidate class="space-y-8">
+                        <div class="space-y-2">
+                            <label class="text-sm font-bold text-gray-600 ml-1">Nom & Prénom *</label>
+                            <input type="text" v-model="formData.name" placeholder="Votre nom"
+                                   :class="{'input-error': attemptedSubmit && !formData.name}"
+                                   class="w-full px-6 py-4 bg-white border border-gray-200 rounded-xl focus:border-brand outline-none transition-all block">
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="text-sm font-bold text-gray-600 ml-1">Téléphone *</label>
+                            <div class="flex gap-2">
+                                <div class="relative w-32 shrink-0">
+                                    <select v-model="formData.countryCode" class="w-full pl-4 pr-8 py-4 bg-white border border-gray-200 rounded-xl focus:border-brand outline-none appearance-none cursor-pointer">
+                                        <option value="+33">🇫🇷 +33</option>
+                                        <option value="+86">🇨🇳 +86</option>
+                                        <option value="+852">🇭🇰 +852</option>
+                                        <option value="+1">🇺🇸 +1</option>
+                                    </select>
+                                    <i class="fas fa-chevron-down absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none text-xs"></i>
+                                </div>
+                                <input type="tel" v-model="formData.phone" placeholder="Numéro"
+                                       :class="{'input-error': attemptedSubmit && (phoneError || !formData.phone)}"
+                                       class="flex-1 px-6 py-4 bg-white border border-gray-200 rounded-xl focus:border-brand outline-none transition-all">
+                            </div>
+                            <p v-if="attemptedSubmit && phoneError" class="text-red-600 text-[11px] ml-1 mt-1 font-medium">{{ phoneError }}</p>
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="text-sm font-bold text-gray-600 ml-1">E-mail *</label>
+                            <input type="email" v-model="formData.email" placeholder="Pour recevoir notre réponse"
+                                   :class="{'input-error': attemptedSubmit && !formData.email}"
+                                   class="w-full px-6 py-4 bg-white border border-gray-200 rounded-xl focus:border-brand outline-none transition-all">
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="text-sm font-bold text-gray-600 ml-1">Détails de votre demande * (min 20 caractères)</label>
+                            <textarea v-model="formData.details" rows="5" placeholder="Veuillez nous indiquer votre rythme de voyage, vos préférences alimentaires ou toute question spécifique..."
+                                      :class="{'input-error': attemptedSubmit && (formData.details.length < 20)}"
+                                      class="w-full px-6 py-4 bg-white border border-gray-200 rounded-xl focus:border-brand outline-none transition-all resize-none"></textarea>
+                            <p v-if="attemptedSubmit && formData.details.length < 20 && formData.details.length > 0" class="text-red-600 text-[11px] ml-1 mt-1 font-medium">La demande doit contenir au moins 20 caractères</p>
+                        </div>
+
+                        <button type="submit" class="w-full bg-brand text-white font-bold py-5 rounded-2xl hover:bg-red-800 transition-all shadow-lg shadow-red-100 uppercase tracking-widest text-lg">
+                            Envoyer la demande
+                        </button>
+                    </form>
+
+                    <div v-else class="text-center fade-in py-12">
+                        <div class="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-4xl mx-auto mb-8">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">Demande envoyée avec succès !</h2>
+                        <p class="text-lg text-gray-600 leading-relaxed font-light">
+                            Merci de votre confiance. Votre demande a bien été transmise à notre équipe.<br class="hidden md:block">
+                            Nous vous contacterons <span class="text-brand font-bold underline">sous 24 heures</span> par téléphone ou e-mail<br class="hidden md:block">
+                            pour concevoir votre itinéraire exclusif.
+                        </p>
+                        <button @click="isSubmitted = false; attemptedSubmit = false; resetForm();" class="mt-12 text-brand font-bold hover:underline flex items-center gap-2 mx-auto">
+                            <i class="fas fa-redo-alt text-xs"></i> Envoyer une nouvelle demande
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-900 text-gray-400 pt-20 pb-10 border-t-8 border-brand">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-20">
+                <div class="space-y-6">
+                    <img src="https://www.eurasia-tours.fr/assets/logo-word-rNz8dsz6.jpg" 
+                         alt="Eurasia Tours Logo" class="h-10 w-auto object-contain opacity-90 mix-blend-lighten brightness-110">
+                    <p class="text-sm leading-relaxed">Depuis 2000, Eurasia Tours s'engage à offrir aux voyageurs du monde entier une expérience de voyage authentique en Europe et en Asie. Nous ne sommes pas seulement une agence, mais votre guide culturel.</p>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold text-lg mb-8 flex items-center gap-3"><span class="w-1 h-5 bg-brand"></span> Garanties & Certifications</h4>
+                    <ul class="space-y-4 text-sm text-gray-400">
+                        <li class="flex items-center gap-3"><i class="fas fa-check-circle text-brand"></i> Membre de l'APST</li>
+                        <li class="flex items-center gap-3"><i class="fas fa-check-circle text-brand"></i> Accréditation IATA</li>
+                        <li class="flex items-center gap-3"><i class="fas fa-shield-alt text-brand"></i> Assurance RCP incluse</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold text-lg mb-8 flex items-center gap-3"><span class="w-1 h-5 bg-brand"></span> Contactez-nous</h4>
+                    <ul class="space-y-4 text-sm text-gray-400">
+                        <li class="flex items-start gap-3"><i class="fas fa-map-marker-alt text-brand mt-1"></i> 30 Rue Ernest Renan, 75015 Paris</li>
+                        <li class="flex items-center gap-3"><i class="fas fa-phone-alt text-brand"></i> 01 56 69 12 80</li>
+                        <li class="flex items-center gap-3"><i class="fas fa-envelope text-brand"></i> contact@eurasiatours.fr</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold text-lg mb-8 flex items-center gap-3"><span class="w-1 h-5 bg-brand"></span> Suivez-nous & Paiement</h4>
+                    <div class="flex gap-4 mb-8">
+                        <div class="relative group" @mouseenter="isWechatQR = true" @mouseleave="isWechatQR = false">
+                            <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-[#07C160] transition">
+                                <i class="fab fa-weixin text-white"></i>
+                            </a>
+                            <transition name="qr-fade">
+                                <div v-if="isWechatQR" class="absolute bottom-12 left-1/2 -translate-x-1/2 bg-white p-2 rounded-lg shadow-2xl z-50 w-32 border border-gray-100">
+                                    <img src="https://www.eurasia-tours.fr/assets/wechat-account-VZcww6ek.jpg" alt="WeChat QR" class="w-full h-auto">
+                                    <p class="text-[10px] text-gray-500 text-center mt-1 font-sans">Compte WeChat</p>
+                                </div>
+                            </transition>
+                        </div>
+
+                        <div class="relative group" @mouseenter="isFacebookQR = true" @mouseleave="isFacebookQR = false">
+                            <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-[#1877F2] transition">
+                                <i class="fab fa-facebook-f text-white"></i>
+                            </a>
+                            <transition name="qr-fade">
+                                <div v-if="isFacebookQR" class="absolute bottom-12 left-1/2 -translate-x-1/2 bg-white p-2 rounded-lg shadow-2xl z-50 w-32 border border-gray-100">
+                                    <img src="https://www.eurasia-tours.fr/assets/3-Bjf7LFHD.png" alt="Facebook QR" class="w-full h-auto">
+                                    <p class="text-[10px] text-gray-500 text-center mt-1 font-sans">Notre Facebook</p>
+                                </div>
+                            </transition>
+                        </div>
+                    </div>
+                    <div class="flex gap-4 text-3xl opacity-30">
+                        <i class="fab fa-cc-visa"></i><i class="fab fa-cc-mastercard"></i><i class="fab fa-cc-amex"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-10 text-center text-xs tracking-widest uppercase">
+                © 2026 EURASIA TOURS · TOUS DROITS RÉSERVÉS
+            </div>
+        </div>
+    </footer>
+</div>
+
+<script>
+    const { createApp, ref, computed, nextTick } = Vue;
+    createApp({
+        setup() {
+            // Header Logic
+            const isMobileMenuOpen = ref(false);
+            const isDestDropdownOpen = ref(false);
+            const isLangDropdownOpen = ref(false); 
+            const currentLang = ref('Française'); 
+
+            const switchLang = (lang) => {
+                const urlMap = {
+                    '中文': 'index CN.html',
+                    'English': 'index EN.html',
+                    'Française': 'index FR.html'
+                };
+                const targetUrl = urlMap[lang];
+                if (targetUrl) {
+                    window.location.href = targetUrl;
+                }
+            };
+
+            // Footer QR codes state
+            const isWechatQR = ref(false);
+            const isFacebookQR = ref(false);
+            
+            // 修正：navLinks 数据现在与 Index FR 完全一致 (Chine, Asie hors Chine)
+            // 仅对 "Contact" 添加 current: true
+            const navLinks = [
+                { name: 'Accueil', url: 'index FR.html' },
+                { 
+                    name: 'Nos destinations', 
+                    url: 'destination main FR.html', 
+                    subLinks: [
+                        { name: 'Chine', url: 'destination chine.html' },
+                        { name: 'Asie hors Chine', url: 'destination asie hors chine.html' },
+                    ] 
+                },
+                { name: 'Voyage sur mesure', url: 'custom FR.html' },
+                { name: 'Vols', url: 'tickets FR.html' },
+                { name: 'Qui sommes-nous', url: 'about FR.html' },
+                { name: 'Contact', url: 'contact FR.html', current: true }, // Current active link
+                { name: 'Blog', url: 'blog FR.html' }
+            ];
+
+            // Form Logic
+            const isSubmitted = ref(false);
+            const attemptedSubmit = ref(false);
+            const formData = ref({
+                name: '', countryCode: '+33', phone: '', email: '', details: ''
+            });
+
+            // Phone Validation
+            const phoneError = computed(() => {
+                if (!formData.value.phone) return null;
+                const lengths = { '+33': 10, '+86': 11, '+852': 8, '+1': 10 };
+                const required = lengths[formData.value.countryCode] || 10;
+                return formData.value.phone.length !== required ? `Le numéro doit comporter ${required} chiffres` : null;
+            });
+
+            // Form Submission & Validation
+            const handleFormSubmit = () => {
+                attemptedSubmit.value = true;
+                const hasEmpty = !formData.value.name || !formData.value.phone || !formData.value.email || (formData.value.details.length < 20);
+
+                if (hasEmpty || phoneError.value) {
+                    nextTick(() => {
+                        const firstError = document.querySelector('.input-error');
+                        if (firstError) {
+                            firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }
+                    });
+                    return;
+                }
+                isSubmitted.value = true;
+                window.scrollTo({ top: 300, behavior: 'smooth' });
+            };
+
+            const resetForm = () => {
+                formData.value = { name: '', countryCode: '+33', phone: '', email: '', details: '' };
+            };
+
+            return { 
+                // Header exports
+                isDestDropdownOpen, isLangDropdownOpen, isMobileMenuOpen, currentLang, switchLang, navLinks,
+                // Footer exports
+                isWechatQR, isFacebookQR,
+                // Form exports
+                formData, handleFormSubmit, phoneError, isSubmitted, attemptedSubmit, resetForm
+            }
+        }
+    }).mount('#app');
+</script>
+</body>
+</html>

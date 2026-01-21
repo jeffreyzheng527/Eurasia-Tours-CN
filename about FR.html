@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qui sommes-nous - Eurasia Tours</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Adjusted fonts for French reading habits */
+        body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+        h1, h2, h3 { font-family: 'Playfair Display', serif; }
+        .text-brand { color: #b91c1c; }
+        .bg-brand { background-color: #b91c1c; }
+        .hover\:bg-brand:hover { background-color: #991b1b; }
+        
+        .hero-text-shadow { text-shadow: 0 4px 20px rgba(0, 0, 0, 0.6); }
+        .nav-link-spacing { letter-spacing: 0.05em; }
+
+        .dropdown-enter-active { transition: all 0.3s ease-out; }
+        .dropdown-leave-active { transition: all 0.2s ease-in; }
+        .dropdown-enter-from, .dropdown-leave-to { opacity: 0; transform: translateY(12px) scale(0.98); }
+
+        .qr-fade-enter-active, .qr-fade-leave-active { transition: all 0.3s ease-out; }
+        .qr-fade-enter-from, .qr-fade-leave-to { opacity: 0; transform: translateY(10px); }
+
+        .mobile-menu-enter-active, .mobile-menu-leave-active { transition: all 0.3s ease; }
+        .mobile-menu-enter-from, .mobile-menu-leave-to { opacity: 0; transform: translateY(-10px); }
+
+        .img-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background-color: #fff;
+        }
+        .img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        .cover-img img {
+            object-fit: cover;
+        }
+        .desc-box {
+            min-height: 200px;
+            text-align: justify;
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-800 antialiased">
+
+<div id="app">
+    <header class="fixed w-full top-0 z-[100] bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col lg:flex-row items-center justify-between py-2 lg:h-24">
+                <div class="flex items-center justify-between w-full lg:w-auto">
+                    <a href="index CN.html" class="flex items-center group">
+                        <img src="https://www.eurasia-tours.fr/assets/logo-word-rNz8dsz6.jpg" 
+                             alt="Logo" class="h-10 md:h-12 w-auto object-contain transition-transform group-hover:scale-105 mix-blend-multiply">
+                    </a>
+                    <button class="lg:hidden relative z-50 text-2xl p-2 text-gray-700 focus:outline-none cursor-pointer" @click="isMobileMenuOpen = !isMobileMenuOpen">
+                        <i class="fas" :class="isMobileMenuOpen ? 'fa-times' : 'fa-bars'"></i>
+                    </button>
+                </div>
+
+                <nav class="hidden lg:flex flex-1 items-center justify-end ml-4 max-w-7xl gap-4 xl:gap-6">
+                    <div v-for="link in navLinks" :key="link.name" class="relative group py-8"
+                         @mouseenter="link.name === 'Nos destinations' ? isDestDropdownOpen = true : null"
+                         @mouseleave="isDestDropdownOpen = false">
+                        
+                        <a :href="link.url" 
+                           class="nav-link-spacing relative py-3 px-1 text-xs xl:text-sm font-bold uppercase transition-all flex items-center gap-1 whitespace-nowrap"
+                           :class="link.current ? 'text-brand' : 'text-gray-700 hover:text-brand'">
+                            {{ link.name }}
+                            <i v-if="link.subLinks" class="fas fa-angle-down text-xs transition-transform duration-300" :class="{'rotate-180': link.name === 'Nos destinations' && isDestDropdownOpen}"></i>
+                            <span class="absolute bottom-1 left-0 h-0.5 bg-brand transition-all duration-300"
+                                  :class="link.current ? 'w-full' : 'w-0 group-hover:w-full'"></span>
+                        </a>
+                        
+                        <transition name="dropdown">
+                            <div v-if="link.name === 'Nos destinations' && isDestDropdownOpen" 
+                                 class="absolute top-full left-1/2 -translate-x-1/2 w-[240px] bg-white shadow-[0_20px_50px_rgba(0,0,0,0.15)] rounded-xl border border-gray-100 p-3 overflow-hidden mt-[-5px]">
+                                <div class="px-4 pb-2 mb-2 border-b border-gray-50 text-[10px] uppercase tracking-[0.1em] text-gray-400 font-bold">Pays Populaires</div>
+                                <ul class="space-y-1">
+                                    <li v-for="sub in link.subLinks" :key="sub.name">
+                                        <a :href="sub.url" class="flex items-center gap-3 px-4 py-3 text-base font-medium text-gray-700 hover:bg-red-50 hover:text-brand rounded-lg transition-all group/item border-l-2 border-transparent hover:border-brand">
+                                            <i class="fas fa-map-pin text-[10px] text-brand opacity-0 group-hover/item:opacity-100 transition-opacity duration-300"></i>
+                                            {{ sub.name }}
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="mt-3 pt-2 border-t border-gray-50">
+                                    <a href="destination main FR.html" class="flex items-center justify-center gap-2 px-4 py-2 text-[13px] font-bold text-brand hover:underline">Toutes les destinations <i class="fas fa-arrow-right text-[10px]"></i></a>
+                                </div>
+                            </div>
+                        </transition>
+                    </div>
+
+                    <div class="relative group py-8 pl-4 ml-2"
+                         @mouseenter="isLangDropdownOpen = true"
+                         @mouseleave="isLangDropdownOpen = false">
+                        
+                        <span class="absolute left-0 top-1/2 -translate-y-1/2 h-5 w-px bg-gray-200"></span>
+
+                        <a href="#" class="nav-link-spacing relative py-3 px-1 text-xs xl:text-sm font-bold uppercase text-gray-700 hover:text-brand transition-all flex items-center gap-2 whitespace-nowrap">
+                            <i class="fas fa-globe text-lg"></i>
+                            {{ currentLang }}
+                            <i class="fas fa-angle-down text-xs transition-transform duration-300" :class="{'rotate-180': isLangDropdownOpen}"></i>
+                        </a>
+                        <transition name="dropdown">
+                            <div v-if="isLangDropdownOpen" 
+                                 class="absolute top-full right-0 w-[140px] bg-white shadow-[0_20px_50px_rgba(0,0,0,0.15)] rounded-xl border border-gray-100 p-2 overflow-hidden mt-[-5px]">
+                                <ul class="space-y-1">
+                                    <li>
+                                        <a href="#" @click.prevent="switchLang('中文')" 
+                                           class="flex items-center justify-between px-4 py-2 text-sm font-medium text-gray-700 hover:bg-red-50 hover:text-brand rounded-lg transition-all"
+                                           :class="{'bg-red-50 text-brand': currentLang === '中文'}">
+                                            中文 <i v-if="currentLang === '中文'" class="fas fa-check text-xs"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" @click.prevent="switchLang('English')" 
+                                           class="flex items-center justify-between px-4 py-2 text-sm font-medium text-gray-700 hover:bg-red-50 hover:text-brand rounded-lg transition-all"
+                                           :class="{'bg-red-50 text-brand': currentLang === 'English'}">
+                                            English <i v-if="currentLang === 'English'" class="fas fa-check text-xs"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" @click.prevent="switchLang('Française')" 
+                                           class="flex items-center justify-between px-4 py-2 text-sm font-medium text-gray-700 hover:bg-red-50 hover:text-brand rounded-lg transition-all"
+                                           :class="{'bg-red-50 text-brand': currentLang === 'Française'}">
+                                            Française <i v-if="currentLang === 'Française'" class="fas fa-check text-xs"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </transition>
+                    </div>
+                </nav>
+            </div>
+        </div>
+
+        <transition name="mobile-menu">
+            <nav v-if="isMobileMenuOpen" class="lg:hidden absolute top-full left-0 w-full bg-white border-t border-gray-100 py-6 pb-10 shadow-xl overflow-y-auto max-h-[80vh]">
+                <div class="flex flex-col items-center gap-6">
+                    <a v-for="link in navLinks" :key="link.name" :href="link.url"
+                       class="text-xl font-bold py-2 uppercase tracking-widest transition"
+                       :class="link.current ? 'text-brand' : 'text-gray-800 hover:text-brand'"
+                       @click="isMobileMenuOpen = false">
+                       {{ link.name }}
+                    </a>
+                    
+                    <div class="flex items-center gap-4 mt-2 border-t border-gray-100 pt-6 w-full justify-center flex-wrap px-4">
+                        <button @click="switchLang('中文')" class="px-4 py-1 rounded-full text-sm font-bold transition" :class="currentLang === '中文' ? 'bg-brand text-white' : 'bg-gray-100 text-gray-600'">中文</button>
+                        <button @click="switchLang('English')" class="px-4 py-1 rounded-full text-sm font-bold transition" :class="currentLang === 'English' ? 'bg-brand text-white' : 'bg-gray-100 text-gray-600'">English</button>
+                        <button @click="switchLang('Française')" class="px-4 py-1 rounded-full text-sm font-bold transition" :class="currentLang === 'Française' ? 'bg-brand text-white' : 'bg-gray-100 text-gray-600'">Française</button>
+                    </div>
+
+                    <a href="contact.html" class="bg-brand text-white px-10 py-3 rounded-full font-bold shadow-lg mt-4" @click="isMobileMenuOpen = false">Demandez un devis</a>
+                </div>
+            </nav>
+        </transition>
+    </header>
+
+    <main class="pt-24">
+        <section class="relative h-[60vh] min-h-[500px] flex items-center justify-center bg-gray-900 overflow-hidden cover-img">
+            <img src="https://www.eurasia-tours.fr/assets/banner-B36M69Yx.jpg" class="absolute inset-0 w-full h-full opacity-60">
+            <div class="absolute inset-0 bg-black/30 z-10"></div>
+            <div class="relative z-20 text-center px-4">
+                <h1 class="text-6xl md:text-8xl font-bold text-white mb-4 hero-text-shadow tracking-tight">Qui sommes-nous</h1>
+                <div class="h-2 w-24 bg-brand mx-auto mt-6 shadow-lg"></div>
+            </div>
+        </section>
+
+        <section class="py-24 container mx-auto px-4 max-w-6xl">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div class="space-y-8">
+                    <div class="inline-block px-4 py-1 bg-red-50 text-brand text-sm font-bold rounded-full tracking-widest uppercase">Histoire</div>
+                    <h2 class="text-4xl font-bold text-gray-900 leading-tight italic">L'Histoire du Groupe Eurasia</h2>
+                    <div class="text-lg text-gray-600 leading-relaxed space-y-6 text-justify">
+                        <p>Eurasia Tours, fondée en 2000, est une agence de voyage agréée par Atout France (l'Agence de développement touristique de la France) pour l'accueil de touristes internationaux. Nous détenons une licence d'État (IM075120157) et sommes assurés par GROUPAMA (n° AA145293).</p>
+                        <p>Forte de son expertise européenne, notre agence tire parti des riches ressources touristiques de la Chine et de l'Europe pour offrir des expériences de voyage exceptionnelles. Nous proposons toute l'année des services haut de gamme et personnalisés : circuits en Europe et en Asie, voyages d'affaires, voyages d'études, croisières et billetterie internationale.</p>
+                    </div>
+                </div>
+                <div class="img-container h-[500px] rounded-2xl shadow-2xl cover-img">
+                    <img src="https://www.eurasia-tours.fr/assets/image%20files-CWcbulXw.jpg">
+                </div>
+            </div>
+        </section>
+
+        <section class="py-24 bg-gray-50">
+            <div class="container mx-auto px-4 max-w-6xl">
+                <div class="flex flex-col lg:flex-row-reverse items-center gap-16">
+                    <div class="lg:w-1/2 space-y-8">
+                        <h2 class="text-3xl font-bold italic border-r-8 border-brand pr-6 text-right uppercase tracking-widest">Notre Mission</h2>
+                        <div class="text-lg text-gray-600 leading-relaxed text-right space-y-6">
+                            <p>Eurasia Tours s'engage à offrir aux voyageurs du monde entier des expériences inoubliables en Europe, en Amérique du Nord, en Asie et en Afrique. Tout en maintenant nos avantages traditionnels dans l'organisation de conférences, d'expositions et de visites d'affaires, nous innovons constamment pour répondre aux nouvelles demandes du marché.</p>
+                            <div class="space-y-2">
+                                <p class="font-bold text-gray-900 uppercase tracking-tighter text-sm italic">Nos projets incluent :</p>
+                                <ul class="space-y-1 list-none">
+                                    <li>Colonies de vacances saisonnières <i class="fas fa-caret-left text-brand ml-2"></i></li>
+                                    <li>Retraites de développement personnel <i class="fas fa-caret-left text-brand ml-2"></i></li>
+                                    <li>Autotours en Europe <i class="fas fa-caret-left text-brand ml-2"></i></li>
+                                    <li>Circuits cyclotouristiques <i class="fas fa-caret-left text-brand ml-2"></i></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lg:w-1/2 w-full h-[450px] img-container rounded-2xl cover-img">
+                        <img src="https://www.eurasia-tours.fr/assets/2-GO12BKkz.jpg">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-24 bg-white">
+            <div class="container mx-auto px-4 max-w-7xl">
+                <div class="text-center mb-16 space-y-6">
+                    <h2 class="text-3xl font-bold italic tracking-widest uppercase">Prix et Réalisations</h2>
+                    <p class="text-gray-600 text-center max-w-4xl mx-auto leading-relaxed text-lg font-light">
+                        Eurasia Tours est recommandée depuis de nombreuses années par le guide Petit Futé. En tant que membre de l'APST (Association Professionnelle de Solidarité du Tourisme), nous bénéficions de la confiance et du soutien des professionnels du secteur et de nos clients.
+                    </p>
+                    <div class="h-1 w-20 bg-brand mx-auto"></div>
+                </div>
+                
+                <div class="grid grid-cols-2 md:grid-cols-5 gap-6 mb-16">
+                    <div v-for="(img, idx) in ['afr.png', 'groupama.png', 'petit.png', 'apst.jpg', 'atout.jfif']" :key="idx" class="aspect-square img-container p-4 border border-gray-100 rounded-xl shadow-sm">
+                        <img :src="'https://www.eurasia-tours.fr/static/aboutus2/images/' + img">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-5 gap-8 items-start">
+                    <div class="space-y-4">
+                        <div class="aspect-video img-container rounded-xl shadow-sm cover-img"><img src="https://www.eurasia-tours.fr/static/aboutus2/images/3.jpg"></div>
+                        <h4 class="font-bold text-brand border-b border-red-100 pb-2">Services Touristiques Diversifiés</h4>
+                        <p class="text-[13px] text-gray-500 leading-relaxed desc-box">Nous organisons des circuits réguliers et spéciaux pour les touristes français vers l'Asie (Japon, Vietnam, Cambodge, Ouzbékistan). Nous nous concentrons sur la culture, les affaires, le cyclisme, la randonnée et les échanges étudiants. Nos circuits en Chine (Pékin, Xi'an, Shanghai, Route de la Soie, Tibet) sont très appréciés.</p>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="aspect-video img-container rounded-xl shadow-sm cover-img"><img src="https://www.eurasia-tours.fr/static/aboutus2/images/4.jpg"></div>
+                        <h4 class="font-bold text-brand border-b border-red-100 pb-2">Expansion Stratégique</h4>
+                        <p class="text-[13px] text-gray-500 leading-relaxed desc-box">En 2024, Eurasia Tours a reçu un investissement stratégique du GTT International Travel Group (Dallas, USA), devenant sa première filiale européenne. GTT, fondé en 1984, est le plus grand consolidateur en Amérique du Nord avec 35% de parts de marché et un chiffre d'affaires annuel de plus de 2 milliards de dollars.</p>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="aspect-video img-container rounded-xl shadow-sm cover-img"><img src="https://www.eurasia-tours.fr/static/aboutus2/images/5.jpg"></div>
+                        <h4 class="font-bold text-brand border-b border-red-100 pb-2">Croissance sur le Marché Américain</h4>
+                        <p class="text-[13px] text-gray-500 leading-relaxed desc-box">Grâce à notre partenariat stratégique avec GTT, Eurasia Tours est bien positionnée pour se développer aux États-Unis. En tirant parti du vaste réseau de GTT, nous visons à offrir nos services touristiques exceptionnels à un public nord-américain plus large, connectant ainsi davantage de voyageurs à nos expériences uniques.</p>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="aspect-video img-container rounded-xl shadow-sm cover-img"><img src="https://www.eurasia-tours.fr/static/aboutus2/images/6.jpg"></div>
+                        <h4 class="font-bold text-brand border-b border-red-100 pb-2">Services Touristiques Mondiaux</h4>
+                        <p class="text-[13px] text-gray-500 leading-relaxed desc-box">Notre agence offre des services complets pour les touristes entrants et sortants (Inbound/Outbound). Explorez l'Asie, l'Amérique du Nord, l'Europe et l'Afrique du Nord à travers nos voyages sur mesure. Dès la fin 2024, nous proposerons également la réservation en ligne de vols et de croisières.</p>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="aspect-video img-container rounded-xl shadow-sm cover-img"><img src="https://www.eurasia-tours.fr/static/aboutus2/images/7.jpg"></div>
+                        <h4 class="font-bold text-brand border-b border-red-100 pb-2">Partenaires de Longue Date</h4>
+                        <p class="text-[13px] text-gray-500 leading-relaxed desc-box">Depuis sa création, Eurasia Tours a établi un réseau solide de partenaires avec des hôtels, compagnies aériennes et croisiéristes de renom. Ces partenariats nous permettent de garantir à nos clients des hébergements de qualité et des services de transport fiables pour un voyage sans encombre.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-24 bg-white border-t border-gray-100">
+            <div class="container mx-auto px-4 max-w-7xl text-center">
+                <h2 class="text-3xl font-bold italic tracking-widest uppercase text-brand mb-16">Nos Partenaires</h2>
+                <div class="grid grid-cols-2 sm:grid-cols-5 lg:grid-cols-10 gap-4 mb-8">
+                    <div v-for="img in partnerRow1" class="aspect-video img-container p-2 border border-gray-50 rounded-lg shadow-sm"><img :src="img"></div>
+                </div>
+                <div class="grid grid-cols-2 sm:grid-cols-5 lg:grid-cols-10 gap-4">
+                    <div v-for="img in partnerRow2" class="aspect-video img-container p-2 border border-gray-50 rounded-lg shadow-sm"><img :src="img"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-900 text-gray-400 pt-20 pb-10 border-t-8 border-brand">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-20">
+                <div class="space-y-6">
+                    <img src="https://www.eurasia-tours.fr/assets/logo-word-rNz8dsz6.jpg" 
+                         alt="Eurasia Tours Logo" class="h-10 w-auto object-contain opacity-90">
+                    <p class="text-sm leading-relaxed">Depuis 2000, Eurasia Tours s'engage à offrir aux voyageurs du monde entier une expérience de voyage authentique en Europe et en Asie. Nous ne sommes pas seulement une agence, mais votre guide culturel.</p>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold text-lg mb-8 flex items-center gap-3"><span class="w-1 h-5 bg-brand"></span> Garanties & Certifications</h4>
+                    <ul class="space-y-4 text-sm text-gray-400">
+                        <li class="flex items-center gap-3"><i class="fas fa-check-circle text-brand"></i> Membre de l'APST</li>
+                        <li class="flex items-center gap-3"><i class="fas fa-check-circle text-brand"></i> Accréditation IATA</li>
+                        <li class="flex items-center gap-3"><i class="fas fa-shield-alt text-brand"></i> Assurance RCP incluse</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold text-lg mb-8 flex items-center gap-3"><span class="w-1 h-5 bg-brand"></span> Contactez-nous</h4>
+                    <ul class="space-y-4 text-sm text-gray-400">
+                        <li class="flex items-start gap-3"><i class="fas fa-map-marker-alt text-brand mt-1"></i> 30 Rue Ernest Renan, 75015 Paris</li>
+                        <li class="flex items-center gap-3"><i class="fas fa-phone-alt text-brand"></i> 01 56 69 12 80</li>
+                        <li class="flex items-center gap-3"><i class="fas fa-envelope text-brand"></i> contact@eurasiatours.fr</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold text-lg mb-8 flex items-center gap-3"><span class="w-1 h-5 bg-brand"></span> Suivez-nous & Paiement</h4>
+                    <div class="flex gap-4 mb-8">
+                        <div class="relative group" @mouseenter="isWechatQR = true" @mouseleave="isWechatQR = false">
+                            <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-[#07C160] transition">
+                                <i class="fab fa-weixin text-white"></i>
+                            </a>
+                            <transition name="qr-fade">
+                                <div v-if="isWechatQR" class="absolute bottom-12 left-1/2 -translate-x-1/2 bg-white p-2 rounded-lg shadow-2xl z-50 w-32 border border-gray-100">
+                                    <img src="https://www.eurasia-tours.fr/assets/wechat-account-VZcww6ek.jpg" alt="WeChat QR" class="w-full h-auto">
+                                    <p class="text-[10px] text-gray-500 text-center mt-1 font-sans">Compte WeChat</p>
+                                </div>
+                            </transition>
+                        </div>
+
+                        <div class="relative group" @mouseenter="isFacebookQR = true" @mouseleave="isFacebookQR = false">
+                            <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-[#1877F2] transition">
+                                <i class="fab fa-facebook-f text-white"></i>
+                            </a>
+                            <transition name="qr-fade">
+                                <div v-if="isFacebookQR" class="absolute bottom-12 left-1/2 -translate-x-1/2 bg-white p-2 rounded-lg shadow-2xl z-50 w-32 border border-gray-100">
+                                    <img src="https://www.eurasia-tours.fr/assets/3-Bjf7LFHD.png" alt="Facebook QR" class="w-full h-auto">
+                                    <p class="text-[10px] text-gray-500 text-center mt-1 font-sans">Notre Facebook</p>
+                                </div>
+                            </transition>
+                        </div>
+                    </div>
+                    <div class="flex gap-4 text-3xl opacity-30">
+                        <i class="fab fa-cc-visa"></i><i class="fab fa-cc-mastercard"></i><i class="fab fa-cc-amex"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-10 text-center text-xs tracking-widest uppercase">
+                © 2026 EURASIA TOURS · TOUS DROITS RÉSERVÉS
+            </div>
+        </div>
+    </footer>
+</div>
+
+<script>
+    const { createApp, ref } = Vue;
+    createApp({
+        setup() {
+            // Header Logic aligned with index FR.html
+            const isDestDropdownOpen = ref(false);
+            const isLangDropdownOpen = ref(false);
+            const isMobileMenuOpen = ref(false);
+            const currentLang = ref('Française'); // Default to French
+
+            const switchLang = (lang) => {
+                const urlMap = {
+                    '中文': 'index CN.html',
+                    'English': 'index EN.html',
+                    'Française': 'index FR.html'
+                };
+                const targetUrl = urlMap[lang];
+                if (targetUrl) {
+                    window.location.href = targetUrl;
+                }
+            };
+            
+            // Footer Logic
+            const isWechatQR = ref(false);
+            const isFacebookQR = ref(false);
+            
+            // Nav Links translated to French and matched with index FR structure
+            const navLinks = [
+                { name: 'Accueil', url: 'index FR.html' },
+                { 
+                    name: 'Nos destinations', 
+                    url: 'destination main FR.html', 
+                    subLinks: [
+                        { name: 'Chine', url: 'destination chine.html' },
+                        { name: 'Asie hors Chine', url: 'destination asie hors chine.html' },
+                    ] 
+                },
+                { name: 'Voyage sur mesure', url: 'custom FR.html' },
+                { name: 'Vols', url: 'tickets FR.html' },
+                { name: 'Qui sommes-nous', url: 'about FR.html', current: true }, // current: true for this page
+                { name: 'Contact', url: 'contact FR.html' },
+                { name: 'Blog', url: 'blog FR.html' }
+            ];
+
+            // Partner images (kept as is)
+            const partnerRow1 = [
+                'https://www.eurasia-tours.fr/static/aboutus2/images/Four-Seasons-Logo.png',
+                'https://www.eurasia-tours.fr/static/aboutus2/images/Marriott-logo.png',
+                'https://www.eurasia-tours.fr/static/aboutus2/images/hilton-logo.png',
+                'https://www.eurasia-tours.fr/static/aboutus2/images/Hyatt-Hotels-Logo.png',
+                'https://www.eurasia-tours.fr/static/aboutus2/images/Accor-logo.png',
+                'https://www.eurasia-tours.fr/static/aboutus2/images/InterContinental-logo.png',
+                'https://www.eurasia-tours.fr/static/aboutus2/images/wyndham-logo.png',
+                'https://www.eurasia-tours.fr/static/aboutus2/images/shangri_la_logo.png',
+                'https://www.eurasia-tours.fr/static/aboutus2/images/the-peninsula-hotels-logo.png',
+                'https://www.eurasia-tours.fr/static/aboutus2/images/Costa-Logo.jpg'
+            ];
+
+            const partnerRow2 = [
+                'https://www.eurasia-tours.fr/static/aboutus2/images/MSC-Cruise-Logo.png',
+                'https://www.eurasia-tours.fr/static/aboutus2/images/royal_caribbean_group_logo.png',
+                'https://www.eurasia-tours.fr/static/aboutus2/images/Princess_Cruises_logo.png',
+                'https://www.eurasia-tours.fr/static/aboutus2/images/R-C.png',
+                'https://www.eurasia-tours.fr/static/aboutus2/images/R-C%20(1).png',
+                'https://www.eurasia-tours.fr/static/aboutus2/images/AirFrance-logo.png',
+                'https://www.eurasia-tours.fr/static/aboutus2/images/KLM-logo.jpg',
+                'https://www.eurasia-tours.fr/static/aboutus2/images/Air_China_logo.png',
+                'https://www.eurasia-tours.fr/static/aboutus2/images/china-southern.jfif',
+                'https://www.eurasia-tours.fr/static/aboutus2/images/china-eastern.png'
+            ];
+
+            return { 
+                isDestDropdownOpen, isLangDropdownOpen, isMobileMenuOpen, currentLang, switchLang, navLinks,
+                isWechatQR, isFacebookQR,
+                partnerRow1, partnerRow2
+            }
+        }
+    }).mount('#app');
+</script>
+</body>
+</html>
